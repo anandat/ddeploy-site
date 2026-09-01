@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0071e3">
+<title>Clean up Ollama and Hugging Face models on a Mac</title>
+<meta name="description" content="Local AI models quietly take 50–150 GB. Where Ollama, LM Studio and Hugging Face store models on macOS, how to delete them the tool-native way, and how to keep them from coming back.">
+<link rel="canonical" href="https://ddeploy.app/blog/clean-ollama-huggingface-models-mac.html">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<link rel="stylesheet" href="../assets/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","headline":"Clean up Ollama and Hugging Face models on a Mac","datePublished":"2026-08-30","author":{"@type":"Organization","name":"ddeploy"},"description":"Where local AI models live on macOS and how to delete them safely."}
+</script>
+</head>
+<body>
+<nav><div class="wrap"><a class="brand" href="../"><img src="../assets/logo.svg" alt="" width="20" height="20" style="border-radius:5px">ddeploy</a><a class="link" href="../faq.html">FAQ</a><a class="link" href="./">Blog</a><a class="cta" href="../downloads/ddeploy.dmg">Download</a></div></nav>
+<article>
+  <div class="wrap narrow">
+    <h1>Clean up Ollama and Hugging Face models on a Mac</h1>
+    <p class="date">30 August 2026</p>
+    <p>Run local AI for a few months and your disk quietly loses 50–150 GB. One pulled model can be 40 GB, every experiment leaves another behind, and none of the tools ever suggest deleting anything.</p>
+    <h2>Where the models live</h2>
+    <ul>
+      <li><strong>Ollama</strong>, <code>~/.ollama/models</code></li>
+      <li><strong>Hugging Face</strong>, <code>~/.cache/huggingface</code> (models <em>and</em> datasets)</li>
+      <li><strong>LM Studio</strong>, <code>~/.lmstudio/models</code></li>
+      <li><strong>PyTorch, Whisper, Keras</strong>, <code>~/.cache/torch</code>, <code>~/.cache/whisper</code>, <code>~/.keras/models</code></li>
+    </ul>
+    <h2>Delete the tool-native way</h2>
+    <p>Don't <code>rm -rf</code> Ollama's folder, the right way is per model, so Ollama's own store stays consistent:</p>
+    <p><code>ollama list</code> then <code>ollama rm llama3:8b</code></p>
+    <p>Hugging Face ships <code>huggingface-cli delete-cache</code> for the same reason. Everything is re-downloadable, so the worst case of any deletion is waiting for a pull again.</p>
+    <h2>Or manage them from one screen</h2>
+    <p>ddeploy's AI Junk screen shows every model store with its real size, flags libraries untouched for 60 days, and its model manager lists each Ollama and LM Studio model individually, deleting via <code>ollama rm</code> under the hood, one model at a time, never the whole library by accident. Claude, ChatGPT, Copilot and MCP server caches get the same treatment.</p>
+    <div class="cta-box"><p style="margin:0 0 14px"><strong>Find out what your AI tools are hoarding.</strong></p><a class="btn" href="../downloads/ddeploy.dmg">Download ddeploy free</a></div>
+  </div>
+</article>
+<footer><div class="wrap"><span>© 2026 ddeploy</span><a href="../">Home</a><a href="./">Blog</a></div></footer>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0071e3">
+<title>Why is System Data so huge on my Mac?</title>
+<meta name="description" content="macOS says System Data is using 100 or 200 GB and won't tell you why. Here's where it actually lives, Library, containers, snapshots, swap, and how to shrink it safely.">
+<link rel="canonical" href="https://ddeploy.app/blog/system-data-mac.html">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<link rel="stylesheet" href="../assets/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","headline":"Why is System Data so huge on my Mac?","datePublished":"2026-08-30","author":{"@type":"Organization","name":"ddeploy"},"description":"Where macOS System Data actually lives and how to shrink it safely."}
+</script>
+</head>
+<body>
+<nav><div class="wrap"><a class="brand" href="../"><img src="../assets/logo.svg" alt="" width="20" height="20" style="border-radius:5px">ddeploy</a><a class="link" href="../faq.html">FAQ</a><a class="link" href="./">Blog</a><a class="cta" href="../downloads/ddeploy.dmg">Download</a></div></nav>
+<article>
+  <div class="wrap narrow">
+    <h1>Why is System Data so huge on my Mac?</h1>
+    <p class="date">30 August 2026</p>
+    <p>Open System Settings → General → Storage and there it is: <strong>System Data, 150 GB</strong>, one grey bar, no explanation, no button. It's the most complained-about number in macOS, and Apple's own definition is circular: System Data is everything that doesn't fit in another category.</p>
+    <h2>Where it actually lives</h2>
+    <p>In practice, a big System Data number is almost always five places:</p>
+    <ul>
+      <li><strong><code>~/Library</code></strong>, the big one. App Support, Containers (Docker's entire VM lives here), Group Containers (WhatsApp media), Caches, and on a dev machine, Android SDKs and emulator images. Tens to hundreds of GB.</li>
+      <li><strong><code>/Library</code></strong>, system-wide app support and caches. Often 20–40 GB.</li>
+      <li><strong><code>/private/var</code></strong>, logs, temp files, and leftovers from updates.</li>
+      <li><strong>Time Machine local snapshots</strong>, invisible as files, but they hold deleted data until macOS thins them. The classic "I deleted 50 GB and nothing changed" culprit.</li>
+      <li><strong>Swap and purgeable space</strong>, managed by macOS, and it genuinely frees the purgeable part when something needs room.</li>
+    </ul>
+    <h2>How to see yours, concretely</h2>
+    <p>You can hunt by hand with <code>du -sh ~/Library/*</code> and <code>tmutil listlocalsnapshots /</code>, or use the System Data screen in ddeploy, which measures each of those places, lets you drill into any folder sorted by size, and purges snapshots with one click. On the first Mac it scanned, "System Data" resolved into an Android emulator collection, Docker's VM, and 15 GB of WhatsApp media in a hidden container.</p>
+    <h2>What's safe to remove</h2>
+    <p>Caches rebuild; snapshots regenerate at the next backup; swap is off-limits (macOS manages it). Your own app data deserves a look before it goes anywhere, which is why anything personal goes to the Trash, not into the void.</p>
+    <div class="cta-box"><p style="margin:0 0 14px"><strong>See your own System Data broken down in 60 seconds.</strong></p><a class="btn" href="../downloads/ddeploy.dmg">Download ddeploy free</a></div>
+  </div>
+</article>
+<footer><div class="wrap"><span>© 2026 ddeploy</span><a href="../">Home</a><a href="./">Blog</a></div></footer>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0071e3">
+<title>Is it safe to delete DerivedData?</title>
+<meta name="description" content="Yes, Xcode's DerivedData rebuilds automatically. What it is, when deleting helps, the one folder nearby you should not touch, and how to clean it safely.">
+<link rel="canonical" href="https://ddeploy.app/blog/is-it-safe-to-delete-deriveddata.html">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<link rel="stylesheet" href="../assets/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","headline":"Is it safe to delete DerivedData?","datePublished":"2026-08-30","author":{"@type":"Organization","name":"ddeploy"},"description":"What Xcode's DerivedData is, when deleting it helps, and what not to touch."}
+</script>
+</head>
+<body>
+<nav><div class="wrap"><a class="brand" href="../"><img src="../assets/logo.svg" alt="" width="20" height="20" style="border-radius:5px">ddeploy</a><a class="link" href="../faq.html">FAQ</a><a class="link" href="./">Blog</a><a class="cta" href="../downloads/ddeploy.dmg">Download</a></div></nav>
+<article>
+  <div class="wrap narrow">
+    <h1>Is it safe to delete DerivedData?</h1>
+    <p class="date">30 August 2026</p>
+    <p><strong>Yes.</strong> <code>~/Library/Developer/Xcode/DerivedData</code> is a pure build cache, intermediate objects, indexes, and module caches Xcode generates from your source. Delete it and Xcode simply rebuilds everything on the next build. Nothing you wrote lives there.</p>
+    <h2>When deleting it actually helps</h2>
+    <ul>
+      <li>It has quietly grown to 10–50 GB across every project you ever opened.</li>
+      <li>Xcode is behaving strangely, phantom errors, stale previews, broken indexing. Clearing DerivedData is the standard first fix.</li>
+    </ul>
+    <p>The cost: your next build of each project is a clean build. Minutes, not hours.</p>
+    <h2>The neighbors, know the difference</h2>
+    <ul>
+      <li><strong>iOS DeviceSupport</strong>, debug symbols per iOS version. Safe to delete; they re-copy from a connected device. Old versions just accumulate.</li>
+      <li><strong>CoreSimulator/Caches</strong>, safe.</li>
+      <li><strong>Archives</strong>, ⚠️ careful. These hold the dSYM symbol files for builds you shipped. Delete an archive and you lose the ability to symbolicate that release's crash reports. Review before removing; send to the Trash, not the void.</li>
+    </ul>
+    <h2>The safe way to do all of it</h2>
+    <p>ddeploy treats these exactly by those rules: DerivedData, DeviceSupport and simulator caches are one preselected safe box (cleaned in place, sizes measured before and after), while Archives is a separate careful box that goes to the Trash. And if you're ever unsure about any item, one right-click asks Claude or ChatGPT about that exact path.</p>
+    <div class="cta-box"><p style="margin:0 0 14px"><strong>Every dev cache on your Mac, measured and one click from clean.</strong></p><a class="btn" href="../downloads/ddeploy.dmg">Download ddeploy free</a></div>
+  </div>
+</article>
+<footer><div class="wrap"><span>© 2026 ddeploy</span><a href="../">Home</a><a href="./">Blog</a></div></footer>
+</body>
+</html>
