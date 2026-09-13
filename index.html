@@ -41,7 +41,7 @@
     <a class="link" href="#pricing">Pricing</a>
     <a class="link" href="faq.html">FAQ</a>
     <a class="link" href="developers.html">For developers</a>
-    <a class="cta" href="downloads/ddeploy.dmg">Download Free</a>
+    <a class="cta" href="https://github.com/anandat/ddeploy-site/releases/latest/download/ddeploy.dmg">Download Free</a>
   </div>
 </nav>
 
@@ -51,9 +51,9 @@
       <h1>Your Mac says it's full. Here's why.</h1>
       <p class="sub">ddeploy shows what's taking the space, in plain English, and clears the safe stuff with one button. Everything happens on your Mac. Nothing leaves it.</p>
       <div class="cta-row">
-        <a class="btn" href="downloads/ddeploy.dmg">Download for Mac</a>
+        <a class="btn" href="https://github.com/anandat/ddeploy-site/releases/latest/download/ddeploy.dmg">Download for Mac</a>
       </div>
-      <p class="fine">Free · no account · no sign-up · works offline · macOS 14+ · 1.3 MB · <a href="faq.html#install">install note</a></p>
+      <p class="fine"><span id="dl-count"></span>Free · no account · no sign-up · works offline · macOS 14+ · 1.3 MB · <a href="faq.html#install">install note</a></p>
     </div>
 
     <div class="mosaic">
@@ -157,7 +157,7 @@
           <li>Look inside + System Data</li>
           <li>Ask AI</li>
         </ul>
-        <a class="btn ghost" href="downloads/ddeploy.dmg">Download</a>
+        <a class="btn ghost" href="https://github.com/anandat/ddeploy-site/releases/latest/download/ddeploy.dmg">Download</a>
       </div>
       <div class="plan pro">
         <div class="name">Pro</div>
@@ -169,7 +169,7 @@
           <li>Developer tools</li>
           <li>1 Mac per key</li>
         </ul>
-        <a class="btn" href="downloads/ddeploy.dmg">Get ddeploy</a>
+        <a class="btn" href="https://github.com/anandat/ddeploy-site/releases/latest/download/ddeploy.dmg">Get ddeploy</a>
       </div>
     </div>
   </div>
@@ -182,7 +182,7 @@
         <h2>Free to look.<br>Ten bucks to clean forever.</h2>
         <p>No subscription, no account. I hate those too.</p>
       </div>
-      <a class="btn" href="downloads/ddeploy.dmg">Get ddeploy</a>
+      <a class="btn" href="https://github.com/anandat/ddeploy-site/releases/latest/download/ddeploy.dmg">Get ddeploy</a>
     </div>
   </div>
 </section>
@@ -210,6 +210,14 @@
   </div>
 </section>
 
+<section id="say" style="padding-top:20px">
+  <div class="wrap narrow">
+    <h2>How much did you get back?</h2>
+    <p class="lead">Post your number, ask a question, or tell me what broke. It's a public board on GitHub, no account on our side.</p>
+    <p><a class="btn ghost" href="https://github.com/anandat/ddeploy-site/discussions">Open the board</a></p>
+  </div>
+</section>
+
 <section style="padding-top:0; padding-bottom:30px">
   <div class="wrap narrow">
     <p style="color:var(--faint); font-size:14.5px; line-height:1.6; margin:0">My 494 GB MacBook hit 4 GB free and Storage settings just said "System Data: 206 GB". So I built this. — Atul</p>
@@ -222,10 +230,17 @@
     <a href="faq.html">FAQ</a>
     <a href="developers.html">Developers</a>
     <a href="blog/">Blog</a>
-    <a href="downloads/ddeploy.dmg">Download</a>
+    <a href="https://github.com/anandat/ddeploy-site/releases/latest/download/ddeploy.dmg">Download</a>
     <span style="margin-left:auto">Built by one person in India. If something's broken, tell me.</span>
   </div>
 </footer>
 
+<script>
+fetch('https://api.github.com/repos/anandat/ddeploy-site/releases').then(r=>r.json()).then(rel=>{
+  var n=0; (rel||[]).forEach(function(r){(r.assets||[]).forEach(function(a){n+=a.download_count||0})});
+  var el=document.getElementById('dl-count');
+  if(el&&n>0) el.textContent=n.toLocaleString()+' downloads · ';
+}).catch(function(){});
+</script>
 </body>
 </html>
