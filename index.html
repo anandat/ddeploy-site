@@ -210,11 +210,17 @@
   </div>
 </section>
 
-<section id="say" style="padding-top:20px">
-  <div class="wrap narrow">
-    <h2>How much did you get back?</h2>
-    <p class="lead">Post your number, ask a question, or tell me what broke. It's a public board on GitHub, no account on our side.</p>
-    <p><a class="btn ghost" href="https://github.com/anandat/ddeploy-site/discussions">Open the board</a></p>
+<section id="reviews" style="padding-top:20px">
+  <div class="wrap">
+    <div class="rev-head">
+      <div>
+        <h2>What people say.</h2>
+        <p class="lead" id="rev-summary">No reviews yet. Be the first.</p>
+      </div>
+      <a class="btn" href="https://github.com/anandat/ddeploy-site/issues/new?template=review.yml">Write a review</a>
+    </div>
+    <div class="rev-grid" id="rev-grid"></div>
+    <p class="fine">Reviews are public GitHub issues on the ddeploy-site repo, so they need a GitHub login and can't be edited by us. Stars, text and your GitHub name are shown here as posted. <a href="https://github.com/anandat/ddeploy-site/issues?q=label%3Areview">See all</a> · <a href="https://github.com/anandat/ddeploy-site/discussions">Questions go on the board</a></p>
   </div>
 </section>
 
@@ -236,6 +242,30 @@
 </footer>
 
 <script>
+(function(){
+  var API='https://api.github.com/repos/anandat/ddeploy-site';
+  function esc(t){return t.replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+  function field(body,name){var m=body.match(new RegExp('### '+name+'\\s*\\n+([\\s\\S]*?)(?=\\n### |$)'));return m?m[1].trim():''}
+  fetch(API+'/issues?labels=review&state=open&per_page=100').then(function(r){return r.json()}).then(function(list){
+    if(!Array.isArray(list))return;
+    var revs=list.filter(function(i){return !i.pull_request}).map(function(i){
+      var body=i.body||'';var stars=(field(body,'Rating').match(/★/g)||[]).length;
+      var text=field(body,'Your review')||body;if(text==='_No response_')text='';
+      var freed=field(body,'How much did you get back\\?');if(freed==='_No response_')freed='';
+      return {stars:stars||5,text:text,freed:freed,name:i.user.login,avatar:i.user.avatar_url,url:i.html_url,date:new Date(i.created_at)};
+    });
+    if(!revs.length)return;
+    var avg=revs.reduce(function(a,r){return a+r.stars},0)/revs.length;
+    document.getElementById('rev-summary').innerHTML='<span class="stars">'+'★'.repeat(Math.round(avg))+'</span> '+avg.toFixed(1)+' from '+revs.length+' review'+(revs.length===1?'':'s');
+    document.getElementById('rev-grid').innerHTML=revs.slice(0,6).map(function(r){
+      return '<a class="rev" href="'+r.url+'" target="_blank" rel="noopener">'+
+        '<div class="rev-top"><img src="'+r.avatar+'&s=64" alt="" width="28" height="28"><b>'+esc(r.name)+'</b><span class="stars">'+'★'.repeat(r.stars)+'</span></div>'+
+        (r.freed?'<div class="rev-freed">'+esc(r.freed)+' back</div>':'')+
+        '<p>'+esc(r.text.length>280?r.text.slice(0,277)+'…':r.text)+'</p>'+
+        '<time>'+r.date.toLocaleDateString(undefined,{month:'short',year:'numeric'})+'</time></a>';
+    }).join('');
+  }).catch(function(){});
+})();
 fetch('https://api.github.com/repos/anandat/ddeploy-site/releases').then(r=>r.json()).then(rel=>{
   var n=0; (rel||[]).forEach(function(r){(r.assets||[]).forEach(function(a){n+=a.download_count||0})});
   var el=document.getElementById('dl-count');

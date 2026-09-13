@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Ask a question
+    url: https://github.com/anandat/ddeploy-site/discussions
+    about: Questions and "how much did you get back" posts go on the board.

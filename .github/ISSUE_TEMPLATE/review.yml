@@ -1,0 +1,29 @@
+name: Write a review
+description: Tell others how ddeploy worked for you. Shows up on the website.
+title: "Review: "
+labels: ["review"]
+body:
+  - type: dropdown
+    id: rating
+    attributes:
+      label: Rating
+      options:
+        - "★★★★★"
+        - "★★★★☆"
+        - "★★★☆☆"
+        - "★★☆☆☆"
+        - "★☆☆☆☆"
+    validations:
+      required: true
+  - type: input
+    id: freed
+    attributes:
+      label: How much did you get back?
+      placeholder: "e.g. 46 GB"
+  - type: textarea
+    id: comment
+    attributes:
+      label: Your review
+      placeholder: What did it find? Anything confusing? Anything it should not have touched?
+    validations:
+      required: true
