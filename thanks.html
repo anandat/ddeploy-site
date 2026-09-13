@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Thank you — ddeploy</title>
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="stylesheet" href="assets/style.css">
+<style>
+.thanks { max-width: 620px; margin: 0 auto; padding: 70px 24px 90px; }
+.thanks h1 { font-size: 40px; margin: 0 0 14px; letter-spacing: -0.02em; }
+.thanks p { color: var(--muted); }
+.steps { counter-reset: s; list-style: none; padding: 0; margin: 28px 0; }
+.steps li { counter-increment: s; position: relative; padding: 0 0 18px 44px; }
+.steps li::before { content: counter(s); position: absolute; left: 0; top: -2px; width: 30px; height: 30px; border-radius: 50%; background: var(--accent); color: #fff; font-weight: 800; display: flex; align-items: center; justify-content: center; font-size: 14px; }
+.keybox { display: flex; gap: 10px; margin: 10px 0 0; }
+.keybox input { flex: 1; font: 600 16px/1 ui-monospace, SFMono-Regular, Menlo, monospace; padding: 14px 16px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--card); color: var(--ink); letter-spacing: 0.04em; }
+.keybox input:focus { outline: none; border-color: var(--accent); }
+.keybox .btn { padding: 14px 22px; font-size: 16px; white-space: nowrap; }
+.keybox .btn[aria-disabled="true"] { opacity: 0.45; pointer-events: none; }
+.small { font-size: 13.5px; color: var(--faint); }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="brand" href="/"><img src="assets/logo.svg" alt="" width="22" height="22" style="border-radius:6px">ddeploy</a>
+    <a class="link" href="faq.html">FAQ</a>
+  </div>
+</nav>
+
+<main class="thanks">
+  <h1>Thank you.</h1>
+  <p>Your ddeploy Pro key is in the email Dodo Payments just sent you (check spam if it isn't there within a minute). Two ways to activate:</p>
+
+  <ol class="steps">
+    <li>
+      <strong>Paste the key here</strong> and click Activate. ddeploy opens and activates itself.
+      <div class="keybox">
+        <input id="key" placeholder="paste your license key" autocomplete="off" spellcheck="false" autofocus>
+        <a id="go" class="btn" href="#" aria-disabled="true">Activate in ddeploy</a>
+      </div>
+      <p class="small" id="hint">Needs ddeploy installed. <a href="https://github.com/anandat/ddeploy-site/releases/latest/download/ddeploy.dmg">Download it</a> if you haven't yet, then come back to this page.</p>
+    </li>
+    <li><strong>Or inside the app:</strong> ddeploy → Settings → License → paste the key → Activate.</li>
+  </ol>
+
+  <p class="small">One key works on one Mac. Moving to a new Mac? Deactivate in Settings, License on the old one first. Lost the email? Reply to your Dodo receipt or write to the support address on the receipt and it'll be resent.</p>
+</main>
+
+<script>
+(function(){
+  var k=document.getElementById('key'), go=document.getElementById('go');
+  function upd(){ var v=k.value.trim(); go.setAttribute('aria-disabled', v?'false':'true'); go.href = v ? 'ddeploy://activate?key='+encodeURIComponent(v) : '#'; }
+  k.addEventListener('input', upd); upd();
+  k.addEventListener('keydown', function(e){ if(e.key==='Enter' && k.value.trim()) go.click(); });
+})();
+</script>
+</body>
+</html>
