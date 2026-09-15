@@ -62,7 +62,13 @@ h3 { font-weight: 600; letter-spacing: -0.01em; }
 .textlink:hover { color: var(--accent); border-color: var(--accent); }
 
 /* Hero */
-header.hero { padding: 72px 0 64px; }
+header.hero { padding: 96px 0 72px; }
+h1 .hl { color: var(--accent); }
+.badges { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; padding: 0; margin: 26px 0 0; }
+.badges li { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); border: 1px solid var(--rule); padding: 7px 11px; line-height: 1; white-space: nowrap; }
+.badges li a { color: inherit; text-decoration: none; }
+.badges li a:hover { color: var(--accent); }
+.badges li:first-child::before { content: "\2713\00a0"; color: var(--accent); }
 .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: start; }
 .hero .sub { font-size: 20px; line-height: 1.5; color: var(--muted); max-width: 520px; margin: 0 0 30px; text-wrap: pretty; }
 
@@ -196,7 +202,7 @@ footer a:hover { color: var(--accent); }
 
 @media (max-width: 900px) {
   .hero-grid { grid-template-columns: 1fr; gap: 40px; }
-  header.hero { padding: 48px 0 24px; }
+  header.hero { padding: 56px 0 24px; }
   section { padding: 40px 0; }
   section.ruled > .wrap { padding-top: 40px; }
   .three { grid-template-columns: 1fr; gap: 30px; }
