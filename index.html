@@ -44,7 +44,7 @@
     <a class="link" href="#pricing">Pricing</a>
     <a class="link" href="faq.html">FAQ</a>
     <a class="link" href="developers.html">Developers</a>
-    <a class="cta" href="https://github.com/anandat/ddeploy-site/releases/latest/download/ddeploy.dmg">Download<span id="dl-size"></span></a>
+    <a class="cta" href="https://github.com/anandat/ddeploy-site/releases/latest/download/ddeploy.dmg">Download</a>
   </div>
 </nav>
 
@@ -296,13 +296,6 @@ fetch('https://api.github.com/repos/anandat/ddeploy-site/releases').then(r=>r.js
   var n=0; rel.forEach(function(r){(r.assets||[]).forEach(function(a){n+=a.download_count||0})});
   var el=document.getElementById('dl-count');
   if(el&&n>0) el.textContent=n.toLocaleString()+' downloads · ';
-  // DMG size of the latest release, same request. Decimal MB, like Finder.
-  var latest=rel.filter(function(r){return !r.draft&&!r.prerelease})[0];
-  var dmg=latest&&(latest.assets||[]).filter(function(a){return a.name==='ddeploy.dmg'})[0];
-  if(dmg&&dmg.size>0){
-    var mb=(dmg.size/1e6).toFixed(1)+' MB';
-    var s=document.getElementById('dl-size'); if(s) s.textContent=' · '+mb;
-  }
 }).catch(function(){});
 </script>
 </body>
