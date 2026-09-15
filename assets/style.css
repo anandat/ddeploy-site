@@ -50,6 +50,7 @@ h3 { font-weight: 600; letter-spacing: -0.01em; }
 .lead { font-size: 19px; color: var(--muted); max-width: 640px; text-wrap: pretty; }
 .fine { font-family: var(--mono); font-size: 12px; color: var(--faint); line-height: 1.6; margin-top: 18px; }
 .fine a { color: var(--faint); }
+.fine code, .faq-item code { font-family: var(--mono); font-size: 12px; background: var(--card); border: 1px solid var(--line); padding: 1px 6px; border-radius: 4px; user-select: all; white-space: nowrap; display: inline-block; max-width: 100%; overflow-x: auto; vertical-align: bottom; }
 
 /* Buttons */
 .btn { display: inline-block; background: var(--ink); color: var(--bg) !important; border: 1px solid var(--ink); padding: 15px 28px; font-size: 16px; font-weight: 600; text-decoration: none !important; }
