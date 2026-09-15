@@ -167,7 +167,7 @@
       <div class="tile"><div class="idx">05</div><h4>Big files</h4><p>Everything over 100 MB, with how long since you touched it.</p></div>
       <div class="tile"><div class="idx">06</div><h4>Memory</h4><p>Quit the apps hogging RAM. Politely, so unsaved work still asks.</p></div>
       <div class="tile"><div class="idx">07</div><h4>Look inside</h4><p>A treemap or a sorted list of any folder, with search. See where it all went.</p></div>
-      <div class="tile"><div class="idx">08</div><h4>Native</h4><p>A real Mac app. <span id="app-size"></span>Opens instantly.</p></div>
+      <div class="tile"><div class="idx">08</div><h4>Native</h4><p>A real Mac app. Opens instantly.</p></div>
     </div>
     <p class="fine">Write code or run AI models? ddeploy notices Xcode, Docker and Ollama on its own and adds a Developer section. <a href="developers.html">See what it cleans →</a></p>
   </div>
@@ -302,7 +302,6 @@ fetch('https://api.github.com/repos/anandat/ddeploy-site/releases').then(r=>r.js
   if(dmg&&dmg.size>0){
     var mb=(dmg.size/1e6).toFixed(1)+' MB';
     var s=document.getElementById('dl-size'); if(s) s.textContent=' · '+mb;
-    var t=document.getElementById('app-size'); if(t) t.textContent=mb+'. ';
   }
 }).catch(function(){});
 </script>
