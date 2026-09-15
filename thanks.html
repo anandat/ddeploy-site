@@ -54,6 +54,8 @@
 (function(){
   var k=document.getElementById('key'), go=document.getElementById('go');
   function upd(){ var v=k.value.trim(); go.setAttribute('aria-disabled', v?'false':'true'); go.href = v ? 'ddeploy://activate?key='+encodeURIComponent(v) : '#'; }
+  // Dodo appends ?license_key=… to the return URL: pre-fill it so activation is one click.
+  var q=new URLSearchParams(location.search).get('license_key'); if(q){ k.value=q.split(',')[0]; }
   k.addEventListener('input', upd); upd();
   k.addEventListener('keydown', function(e){ if(e.key==='Enter' && k.value.trim()) go.click(); });
 })();
