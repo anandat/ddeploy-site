@@ -44,7 +44,7 @@
     <a class="link" href="#pricing">Pricing</a>
     <a class="link" href="faq.html">FAQ</a>
     <a class="link" href="developers.html">Developers</a>
-    <a class="cta" href="https://github.com/anandat/ddeploy-site/releases/latest/download/ddeploy.dmg">Download · 1.3 MB</a>
+    <a class="cta" href="https://github.com/anandat/ddeploy-site/releases/latest/download/ddeploy.dmg">Download<span id="dl-size"></span></a>
   </div>
 </nav>
 
@@ -167,7 +167,7 @@
       <div class="tile"><div class="idx">05</div><h4>Big files</h4><p>Everything over 100 MB, with how long since you touched it.</p></div>
       <div class="tile"><div class="idx">06</div><h4>Memory</h4><p>Quit the apps hogging RAM. Politely, so unsaved work still asks.</p></div>
       <div class="tile"><div class="idx">07</div><h4>Look inside</h4><p>A treemap or a sorted list of any folder, with search. See where it all went.</p></div>
-      <div class="tile"><div class="idx">08</div><h4>Native</h4><p>A real Mac app. 1.3 MB. Opens instantly.</p></div>
+      <div class="tile"><div class="idx">08</div><h4>Native</h4><p>A real Mac app. <span id="app-size"></span>Opens instantly.</p></div>
     </div>
     <p class="fine">Write code or run AI models? ddeploy notices Xcode, Docker and Ollama on its own and adds a Developer section. <a href="developers.html">See what it cleans →</a></p>
   </div>
@@ -292,9 +292,18 @@
   }).catch(function(){});
 })();
 fetch('https://api.github.com/repos/anandat/ddeploy-site/releases').then(r=>r.json()).then(rel=>{
-  var n=0; (rel||[]).forEach(function(r){(r.assets||[]).forEach(function(a){n+=a.download_count||0})});
+  if(!Array.isArray(rel)) return;                       // rate-limited or error body
+  var n=0; rel.forEach(function(r){(r.assets||[]).forEach(function(a){n+=a.download_count||0})});
   var el=document.getElementById('dl-count');
   if(el&&n>0) el.textContent=n.toLocaleString()+' downloads · ';
+  // DMG size of the latest release, same request. Decimal MB, like Finder.
+  var latest=rel.filter(function(r){return !r.draft&&!r.prerelease})[0];
+  var dmg=latest&&(latest.assets||[]).filter(function(a){return a.name==='ddeploy.dmg'})[0];
+  if(dmg&&dmg.size>0){
+    var mb=(dmg.size/1e6).toFixed(1)+' MB';
+    var s=document.getElementById('dl-size'); if(s) s.textContent=' · '+mb;
+    var t=document.getElementById('app-size'); if(t) t.textContent=mb+'. ';
+  }
 }).catch(function(){});
 </script>
 </body>
