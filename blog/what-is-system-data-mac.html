@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0071e3">
+<title>What is "System Data" on a Mac, and how do I reduce it?</title>
+<meta name="description" content="System Data (or &quot;Other&quot;) is everything Storage settings can't categorise. Here is every folder it lives in, typical sizes, what is safe to remove, and why it grows back.">
+<link rel="canonical" href="https://ddeploy.com/blog/what-is-system-data-mac.html">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<link rel="stylesheet" href="../assets/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","headline":"What is "System Data" on a Mac, and how do I reduce it?","datePublished":"2026-09-16","author":{"@type":"Organization","name":"ddeploy"},"description":"System Data (or &quot;Other&quot;) is everything Storage settings can't categorise. Here is every folder it lives in, typical sizes, what is safe to remove, and why it grows back."}
+</script>
+</head>
+<body>
+<nav><div class="wrap"><a class="brand" href="../"><img src="../assets/logo.svg" alt="" width="20" height="20" style="border-radius:5px">ddeploy</a><a class="link" href="../faq.html">FAQ</a><a class="link" href="./">Blog</a><a class="cta" href="https://github.com/anandat/ddeploy-site/releases/latest/download/ddeploy.dmg">Download</a></div></nav>
+<article>
+  <div class="wrap narrow">
+    <h1>What is "System Data" on a Mac, and how do I reduce it?</h1>
+    <p class="date">16 September 2026</p>
+    <p>Open System Settings, General, Storage, and after Apps, Photos and Documents there is a grey bar called <strong>System Data</strong>. On older versions it was called <strong>Other</strong>. It is often the biggest bar on the chart, it can be 50, 100 or 300 GB, and clicking it does nothing. This is what it is, folder by folder, and what you can do about each part.</p>
+
+    <h2>What System Data actually is</h2>
+    <p>It is not the operating system. macOS itself lives on a separate sealed volume that Storage settings shows as "macOS", about 12 GB. System Data is simply <strong>everything Apple's chart could not fit into another category</strong>. Anything that is not an app bundle, not in Photos, not a document it recognises, lands here. Almost all of it is inside three folders:</p>
+    <ul>
+      <li><strong>~/Library</strong>, your user Library. Hidden by default. This is where every app keeps its support files, caches, containers and logs. On most Macs this is 60 to 90 percent of System Data.</li>
+      <li><strong>/Library</strong>, the shared Library for all users. Shared app support, printer drivers, and on a developer Mac, iOS simulator runtimes.</li>
+      <li><strong>/private/var</strong>, temp files, logs, swap, and leftovers from updates.</li>
+    </ul>
+    <p>Two more things count towards it without being files you can see: <strong>Time Machine local snapshots</strong>, which keep deleted data until macOS thins them, and <strong>purgeable space</strong>, which macOS frees on its own the moment something needs room.</p>
+
+    <h2>The usual suspects, with sizes</h2>
+    <p>From the Macs we have looked at, these are the folders that make System Data huge, roughly in order:</p>
+    <table>
+      <tr><th>What</th><th>Where</th><th>Typical size</th></tr>
+      <tr><td>iOS simulator runtimes</td><td>/Library/Developer/CoreSimulator</td><td>8 GB each, often 5 to 7 installed</td></tr>
+      <tr><td>Docker's disk image</td><td>~/Library/Containers/com.docker.docker</td><td>10 to 60 GB</td></tr>
+      <tr><td>WhatsApp media</td><td>~/Library/Group Containers/group.net.whatsapp…</td><td>5 to 20 GB</td></tr>
+      <tr><td>Xcode DerivedData</td><td>~/Library/Developer/Xcode/DerivedData</td><td>5 to 30 GB</td></tr>
+      <tr><td>Android SDK and NDKs</td><td>~/Library/Android/sdk</td><td>10 to 20 GB</td></tr>
+      <tr><td>App caches</td><td>~/Library/Caches</td><td>3 to 10 GB</td></tr>
+      <tr><td>AI models (Ollama, Hugging Face, LM Studio)</td><td>~/.ollama, ~/.cache/huggingface</td><td>10 to 100 GB</td></tr>
+      <tr><td>iPhone backups</td><td>~/Library/Application Support/MobileSync</td><td>5 to 50 GB</td></tr>
+      <tr><td>Mail attachments</td><td>~/Library/Mail</td><td>2 to 20 GB</td></tr>
+      <tr><td>Time Machine snapshots</td><td>not a folder</td><td>0 to 50 GB</td></tr>
+    </table>
+    <p>If you write code, the first five lines are usually the whole story. If you don't, look at WhatsApp, caches, iPhone backups and Mail.</p>
+
+    <h2>How to see yours</h2>
+    <p>By hand: open Terminal and run <code>du -sh ~/Library/* | sort -rh | head</code>, then the same for <code>/Library/*</code>. Snapshots: <code>tmutil listlocalsnapshots /</code>. It works, it is just slow and you have to know what each folder name means.</p>
+    <p>Or open the Hidden System Files screen in ddeploy. It measures the three folders and the snapshots, shows each with its size, and lets you look inside any of them. Scanning is free.</p>
+
+    <h2>What is safe to remove</h2>
+    <ul>
+      <li><strong>Caches, DerivedData, package caches, simulator runtimes you don't use:</strong> safe. They come back when something needs them. This is what ddeploy's Safe label means.</li>
+      <li><strong>WhatsApp media, iPhone backups, Mail, app data:</strong> yours. Look first. ddeploy marks these Review First and moves them to the Trash rather than deleting.</li>
+      <li><strong>Swap, purgeable space, the macOS volume:</strong> leave them. macOS manages all three.</li>
+      <li><strong>Snapshots:</strong> safe to thin, and they regenerate at the next backup. Deleting 50 GB and seeing no change is almost always a snapshot holding it.</li>
+    </ul>
+
+    <h2>Why it grows back</h2>
+    <p>Because most of it is cache. Xcode rebuilds DerivedData on the next build, Docker pulls images again, browsers refill their caches. That is normal and it is why a cleaner is something you run every few months rather than once. The parts that don't grow back are the ones you chose to remove: old simulator runtimes, projects you finished, apps you uninstalled.</p>
+    <p>Related: <a href="system-data-mac.html">Why is System Data so huge on my Mac?</a> and <a href="is-it-safe-to-delete-deriveddata.html">Is it safe to delete DerivedData?</a></p>
+
+    <div class="cta-box"><p style="margin:0 0 14px"><strong>See your own System Data, folder by folder, in a minute.</strong></p><a class="btn" href="https://github.com/anandat/ddeploy-site/releases/latest/download/ddeploy.dmg">Download ddeploy, free</a></div>
+  </div>
+</article>
+<footer><div class="wrap"><span>© 2026 ddeploy</span><a href="../">Home</a><a href="./">Blog</a><a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a><a href="../refunds.html">Refunds</a><a href="mailto:hello@ddeploy.com">hello@ddeploy.com</a></div></footer>
+</body>
+</html>

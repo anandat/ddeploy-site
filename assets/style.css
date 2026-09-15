@@ -222,3 +222,8 @@ footer a:hover { color: var(--accent); }
   .lg-head { font-size: 11px; }
   .band { padding: 32px 24px; }
 }
+
+article table { width:100%; border-collapse:collapse; margin:16px 0; font-size:14px; }
+article th, article td { text-align:left; padding:8px 10px; border-bottom:1px solid var(--line); vertical-align:top; }
+article th { color:var(--muted); font-weight:600; font-size:12px; }
+article h3 { font-size:17px; margin:22px 0 6px; }
