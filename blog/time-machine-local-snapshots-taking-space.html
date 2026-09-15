@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#F3F0E8">
+<title>Time Machine local snapshots: why deleting files didn't free any space</title>
+<meta name="description" content="You deleted 50 GB and free space didn't move. macOS keeps hourly local Time Machine snapshots that hold deleted data until it thins them. How to list them, delete them safely with tmutil, and what you actually lose.">
+<link rel="canonical" href="https://ddeploy.com/blog/time-machine-local-snapshots-taking-space.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Time Machine local snapshots: why deleting files didn't free any space">
+<meta property="og:description" content="You deleted 50 GB and free space didn't move. macOS keeps hourly local Time Machine snapshots that hold deleted data until it thins them. How to list them, delete them safely with tmutil, and what you actually lose.">
+<meta property="og:url" content="https://ddeploy.com/blog/time-machine-local-snapshots-taking-space.html">
+<meta property="og:image" content="https://ddeploy.com/assets/home.jpg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<link rel="stylesheet" href="../assets/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","headline":"Time Machine local snapshots are quietly holding 30 GB","datePublished":"2026-09-15","dateModified":"2026-09-15","author":{"@type":"Organization","name":"ddeploy","url":"https://ddeploy.com/"},"publisher":{"@type":"Organization","name":"ddeploy","url":"https://ddeploy.com/"},"mainEntityOfPage":"https://ddeploy.com/blog/time-machine-local-snapshots-taking-space.html","description":"You deleted 50 GB and free space didn't move. macOS keeps hourly local Time Machine snapshots that hold deleted data until it thins them. How to list them, delete them safely with tmutil, and what you actually lose."}
+</script>
+</head>
+<body>
+<nav><div class="wrap"><a class="brand" href="../"><img src="../assets/logo.svg" alt="" width="20" height="20">ddeploy</a><a class="link" href="../faq.html">FAQ</a><a class="link" href="../developers.html">Developers</a><a class="link" href="./">Blog</a><a class="cta" href="https://github.com/anandat/ddeploy-site/releases/latest/download/ddeploy.dmg">Download</a></div></nav>
+<article>
+  <div class="wrap narrow">
+    <h1>Time Machine local snapshots are quietly holding 30 GB</h1>
+    <p class="date">15 September 2026</p>
+    <div class="ledger" style="margin:24px 0 32px">
+      <div class="lg-head"><span>Macintosh HD · System Data</span><span>tmutil</span></div>
+      <div class="lg-rows">
+        <div class="lg-row"><span>Local Time Machine snapshots, last 24 hours</span><span class="lg-lead"></span><span class="lg-size">31.0 GB</span><span class="lg-tag del">DELETE</span></div>
+      </div>
+      <div class="lg-total"><span>Safe to remove</span><b>31.0 GB</b></div>
+      <p class="lg-note">Real number from the developer's own Mac. macOS makes a fresh snapshot within the hour.</p>
+    </div>
+    <p>If Time Machine is on and your backup disk isn't plugged in, which for a laptop is most of the time, macOS takes a snapshot of your startup disk every hour and keeps them for about a day, longer if no backup has happened. Each snapshot pins every file that existed at that moment. Delete a 20 GB file and nothing changes until the last snapshot that knew about it is gone.</p>
+    <h2>Where they show up</h2>
+    <p>Nowhere you can click. Storage settings counts them as "System Data"; Finder's Get Info counts them as purgeable. There is no folder to open. On one Mac they were holding 31 GB.</p>
+    <h2>List them</h2>
+    <pre><code>tmutil listlocalsnapshots /</code></pre>
+    <p>Each line is one snapshot, named by its date, like <code>com.apple.TimeMachine.2026-09-15-201512.local</code>.</p>
+    <h2>Delete them</h2>
+    <pre><code>tmutil deletelocalsnapshots 2026-09-15-201512   # one, by its date
+tmutil deletelocalsnapshots /                   # every snapshot on the startup disk</code></pre>
+    <p>Or ask macOS to thin them until it has freed a given number of bytes (here 30 GB, at the highest urgency):</p>
+    <pre><code>tmutil thinlocalsnapshots / 30000000000 4</code></pre>
+    <p>If macOS refuses, prefix the command with <code>sudo</code>.</p>
+    <h2>What you lose</h2>
+    <p>The ability to restore a file to how it was earlier today from the local copy. Your real backups on the Time Machine disk are untouched, and macOS takes a fresh snapshot within the hour. It is supposed to delete these itself when space runs low, and it often doesn't do it in time, which is why "I deleted everything and nothing changed" is such a common story.</p>
+    <h2>Other snapshot makers</h2>
+    <p>Carbon Copy Cloner and macOS updates create snapshots too. They appear in the same list and delete the same way.</p>
+    <h2>In ddeploy</h2>
+    <p>System Data → Time Machine snapshots: count, size, one Purge button.</p>
+    <p class="fine">More on Mac storage: <a href="delete-old-ios-simulator-runtimes.html">Old iOS simulator runtimes</a> · <a href="project-build-folders-taking-space-mac.html">Project build folders</a> · <a href="docker-desktop-disk-space-mac.html">Docker Desktop disk space</a> · <a href="whatsapp-mac-storage-huge.html">WhatsApp media on a Mac</a></p>
+    <div class="cta-box"><p style="margin:0 0 14px"><strong>See your own Mac itemised in under a minute. Free to scan.</strong></p><a class="btn" href="https://github.com/anandat/ddeploy-site/releases/latest/download/ddeploy.dmg">Download ddeploy</a></div>
+  </div>
+</article>
+<footer><div class="wrap"><span>© 2026 ddeploy</span><a href="../">Home</a><a href="./">Blog</a><a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a><a href="../refunds.html">Refunds</a><a href="mailto:hello@ddeploy.com">hello@ddeploy.com</a></div></footer>
+</body>
+</html>

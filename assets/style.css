@@ -227,3 +227,10 @@ article table { width:100%; border-collapse:collapse; margin:16px 0; font-size:1
 article th, article td { text-align:left; padding:8px 10px; border-bottom:1px solid var(--line); vertical-align:top; }
 article th { color:var(--muted); font-weight:600; font-size:12px; }
 article h3 { font-size:17px; margin:22px 0 6px; }
+
+/* Code blocks in articles */
+article pre { font-family: var(--mono); font-size: 13.5px; line-height: 1.55; background: var(--card); border: 1px solid var(--rule); padding: 14px 16px; margin: 14px 0 18px; overflow-x: auto; }
+article pre code { background: none; border: 0; padding: 0; font-size: inherit; }
+article ul { padding-left: 22px; }
+article li { margin-bottom: 8px; }
+article .ledger .lg-row { font-size: 13.5px; }

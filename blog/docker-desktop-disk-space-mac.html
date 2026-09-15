@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#F3F0E8">
+<title>Docker Desktop is using 30 GB on your Mac. Here's what to delete.</title>
+<meta name="description" content="Docker on a Mac keeps everything in one virtual disk, Docker.raw, that Finder reports at hundreds of GB. What's really inside, docker system df, and the prune commands that give the space back without touching your volumes.">
+<link rel="canonical" href="https://ddeploy.com/blog/docker-desktop-disk-space-mac.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker Desktop is using 30 GB on your Mac. Here's what to delete.">
+<meta property="og:description" content="Docker on a Mac keeps everything in one virtual disk, Docker.raw, that Finder reports at hundreds of GB. What's really inside, docker system df, and the prune commands that give the space back without touching your volumes.">
+<meta property="og:url" content="https://ddeploy.com/blog/docker-desktop-disk-space-mac.html">
+<meta property="og:image" content="https://ddeploy.com/assets/home.jpg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<link rel="stylesheet" href="../assets/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","headline":"Docker Desktop is using 30 GB on your Mac","datePublished":"2026-09-15","dateModified":"2026-09-15","author":{"@type":"Organization","name":"ddeploy","url":"https://ddeploy.com/"},"publisher":{"@type":"Organization","name":"ddeploy","url":"https://ddeploy.com/"},"mainEntityOfPage":"https://ddeploy.com/blog/docker-desktop-disk-space-mac.html","description":"Docker on a Mac keeps everything in one virtual disk, Docker.raw, that Finder reports at hundreds of GB. What's really inside, docker system df, and the prune commands that give the space back without touching your volumes."}
+</script>
+</head>
+<body>
+<nav><div class="wrap"><a class="brand" href="../"><img src="../assets/logo.svg" alt="" width="20" height="20">ddeploy</a><a class="link" href="../faq.html">FAQ</a><a class="link" href="../developers.html">Developers</a><a class="link" href="./">Blog</a><a class="cta" href="https://github.com/anandat/ddeploy-site/releases/latest/download/ddeploy.dmg">Download</a></div></nav>
+<article>
+  <div class="wrap narrow">
+    <h1>Docker Desktop is using 30 GB on your Mac</h1>
+    <p class="date">15 September 2026</p>
+    <div class="ledger" style="margin:24px 0 32px">
+      <div class="lg-head"><span>Macintosh HD · Docker.raw</span><span>docker system df</span></div>
+      <div class="lg-rows">
+        <div class="lg-row"><span>Images, build cache, stopped containers</span><span class="lg-lead"></span><span class="lg-size">31.2 GB</span><span class="lg-tag del">DELETE</span></div>
+        <div class="lg-row"><span>Volumes, your databases</span><span class="lg-lead"></span><span class="lg-size">kept</span><span class="lg-tag keep">KEEP</span></div>
+      </div>
+      <div class="lg-total"><span>Safe to remove</span><b>31.2 GB</b></div>
+    </div>
+    <p>Docker Desktop on a Mac runs a Linux virtual machine, and that machine's whole disk is one file: <code>~/Library/Containers/com.docker.docker/Data/vms/0/data/Docker.raw</code>. Every image you pull, every layer you build, every stopped container and every volume lives inside it.</p>
+    <h2>Why the number looks insane</h2>
+    <p>The file is sparse. Finder and Get Info show its maximum size, which is the disk limit in Docker's settings. On one Mac, Finder said 494 GB while the file really occupied 2.4 GB. <code>du</code> shows the truth:</p>
+    <pre><code>du -h ~/Library/Containers/com.docker.docker/Data/vms/0/data/Docker.raw</code></pre>
+    <p>That real number is what counts against your free space, and it shows up inside "System Data" because <code>~/Library/Containers</code> is hidden.</p>
+    <h2>See what's inside</h2>
+    <pre><code>docker system df</code></pre>
+    <p>Four lines: images, containers, local volumes, build cache, each with a RECLAIMABLE column. On developer Macs the build cache is often the biggest line. <code>docker system df -v</code> lists every image.</p>
+    <h2>Get the space back</h2>
+    <pre><code>docker image prune -a      # images no container uses
+docker builder prune       # build cache
+docker container prune     # stopped containers</code></pre>
+    <p>Or all three at once with <code>docker system prune -a</code>. None of these touch volumes. Volumes are where your databases live; <code>docker volume prune</code> removes the ones no container references, so read the list it prints before you say yes.</p>
+    <p>The freed space goes back to macOS when Docker trims its disk, which it does on its own a little later. Quitting and reopening Docker Desktop makes it immediate.</p>
+    <h2>Stop it growing back</h2>
+    <p>Docker Desktop → Settings → Resources → Virtual disk limit. After a prune, lower it to something honest. 64 GB is plenty for most people, and Docker can't exceed it.</p>
+    <h2>In ddeploy</h2>
+    <p>Dev Cleanup → Docker row: images no container uses, build cache and stopped containers, sized and preselected. Volumes and running containers are never touched.</p>
+    <p class="fine">More on Mac storage: <a href="delete-old-ios-simulator-runtimes.html">Old iOS simulator runtimes</a> · <a href="project-build-folders-taking-space-mac.html">Project build folders</a> · <a href="time-machine-local-snapshots-taking-space.html">Time Machine local snapshots</a> · <a href="whatsapp-mac-storage-huge.html">WhatsApp media on a Mac</a></p>
+    <div class="cta-box"><p style="margin:0 0 14px"><strong>See your own Mac itemised in under a minute. Free to scan.</strong></p><a class="btn" href="https://github.com/anandat/ddeploy-site/releases/latest/download/ddeploy.dmg">Download ddeploy</a></div>
+  </div>
+</article>
+<footer><div class="wrap"><span>© 2026 ddeploy</span><a href="../">Home</a><a href="./">Blog</a><a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a><a href="../refunds.html">Refunds</a><a href="mailto:hello@ddeploy.com">hello@ddeploy.com</a></div></footer>
+</body>
+</html>

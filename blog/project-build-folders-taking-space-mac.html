@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#F3F0E8">
+<title>Project build folders: the 54 GB hiding in ~/Development</title>
+<meta name="description" content="Flutter build/, node_modules, Gradle build, Rust target, .dart_tool: build output is the biggest thing on most developer Macs and nothing ever deletes it. How to find it, what a clean costs, and what not to touch.">
+<link rel="canonical" href="https://ddeploy.com/blog/project-build-folders-taking-space-mac.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Project build folders: the 54 GB hiding in ~/Development">
+<meta property="og:description" content="Flutter build/, node_modules, Gradle build, Rust target, .dart_tool: build output is the biggest thing on most developer Macs and nothing ever deletes it. How to find it, what a clean costs, and what not to touch.">
+<meta property="og:url" content="https://ddeploy.com/blog/project-build-folders-taking-space-mac.html">
+<meta property="og:image" content="https://ddeploy.com/assets/home.jpg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<link rel="stylesheet" href="../assets/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","headline":"Your project build folders are the biggest thing on your Mac","datePublished":"2026-09-15","dateModified":"2026-09-15","author":{"@type":"Organization","name":"ddeploy","url":"https://ddeploy.com/"},"publisher":{"@type":"Organization","name":"ddeploy","url":"https://ddeploy.com/"},"mainEntityOfPage":"https://ddeploy.com/blog/project-build-folders-taking-space-mac.html","description":"Flutter build/, node_modules, Gradle build, Rust target, .dart_tool: build output is the biggest thing on most developer Macs and nothing ever deletes it. How to find it, what a clean costs, and what not to touch."}
+</script>
+</head>
+<body>
+<nav><div class="wrap"><a class="brand" href="../"><img src="../assets/logo.svg" alt="" width="20" height="20">ddeploy</a><a class="link" href="../faq.html">FAQ</a><a class="link" href="../developers.html">Developers</a><a class="link" href="./">Blog</a><a class="cta" href="https://github.com/anandat/ddeploy-site/releases/latest/download/ddeploy.dmg">Download</a></div></nav>
+<article>
+  <div class="wrap narrow">
+    <h1>Your project build folders are the biggest thing on your Mac</h1>
+    <p class="date">15 September 2026</p>
+    <div class="ledger" style="margin:24px 0 32px">
+      <div class="lg-head"><span>Macintosh HD · ~/Development</span><span>du</span></div>
+      <div class="lg-rows">
+        <div class="lg-row"><span>Project build folders</span><span class="lg-lead"></span><span class="lg-size">54.0 GB</span><span class="lg-tag del">DELETE</span></div>
+        <div class="lg-row"><span>Android NDKs, four versions</span><span class="lg-lead"></span><span class="lg-size">11.0 GB</span><span class="lg-tag del">DELETE</span></div>
+      </div>
+      <div class="lg-total"><span>Safe to remove</span><b>65.0 GB</b></div>
+      <p class="lg-note">Real numbers from the developer's own Mac. One Flutter app's build/ was 20 GB on its own.</p>
+    </div>
+    <p>Every framework writes its compiled output next to your source. Flutter puts it in <code>build/</code> and <code>.dart_tool/</code>, Node in <code>node_modules/</code>, Gradle in <code>build/</code>, Rust in <code>target/</code>, Xcode in DerivedData. None of them ever delete it. A project you last opened in March still has its build folder from March. On one Mac that added up to 54 GB, with a single Flutter app's <code>build/</code> at 20 GB.</p>
+    <h2>Why it gets so big</h2>
+    <ul>
+      <li><strong>Flutter</strong> builds per platform and per mode: iOS, Android, macOS, debug, profile, release. Each keeps its own tree.</li>
+      <li><strong>node_modules</strong> is hundreds of megabytes per project, times every project you ever cloned.</li>
+      <li><strong>Rust</strong> keeps debug and release output plus incremental caches for every crate version you've compiled.</li>
+      <li><strong>Android</strong> adds NDKs: every version you ever installed stays under <code>~/Library/Android/sdk/ndk</code>. Four of them is 11 GB.</li>
+    </ul>
+    <h2>Find it by hand</h2>
+    <pre><code>find ~/Development -type d \( -name build -o -name node_modules -o -name target -o -name .dart_tool \) -prune -print0 \
+  | xargs -0 du -sh 2&gt;/dev/null | sort -h | tail -20</code></pre>
+    <p>That prints the twenty biggest, largest last.</p>
+    <h2>What deleting costs</h2>
+    <p>A rebuild. <code>rm -rf build</code> and the next <code>flutter run</code> regenerates it. <code>npm install</code> re-downloads <code>node_modules</code>. <code>cargo build</code> recreates <code>target/</code>. Minutes, not data. Don't delete it for the project you're building this minute; do delete it for everything you haven't opened in weeks.</p>
+    <h2>What not to touch</h2>
+    <p>A folder called <code>build</code> that actually contains source. Some repos do this. The tell is a manifest beside the folder: a <code>package.json</code>, <code>pubspec.yaml</code>, <code>Cargo.toml</code> or <code>build.gradle</code> next to it means the folder is output. No manifest, look before you delete. Leave <code>~/.pub-cache</code>, <code>~/.gradle/caches</code> and <code>~/.npm</code> alone unless space is critical; they are shared downloads, and everything re-downloads slower without them.</p>
+    <h2>In ddeploy</h2>
+    <p>Developer section → Project Build Folders. Every folder is listed with its framework, git branch (and worktree) and when it was last built, so you can tick the one from March and leave today's. Old NDKs show up under Gradle. Deleted folders go to the Trash.</p>
+    <p class="fine">More on Mac storage: <a href="delete-old-ios-simulator-runtimes.html">Old iOS simulator runtimes</a> · <a href="docker-desktop-disk-space-mac.html">Docker Desktop disk space</a> · <a href="time-machine-local-snapshots-taking-space.html">Time Machine local snapshots</a> · <a href="whatsapp-mac-storage-huge.html">WhatsApp media on a Mac</a></p>
+    <div class="cta-box"><p style="margin:0 0 14px"><strong>See your own Mac itemised in under a minute. Free to scan.</strong></p><a class="btn" href="https://github.com/anandat/ddeploy-site/releases/latest/download/ddeploy.dmg">Download ddeploy</a></div>
+  </div>
+</article>
+<footer><div class="wrap"><span>© 2026 ddeploy</span><a href="../">Home</a><a href="./">Blog</a><a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a><a href="../refunds.html">Refunds</a><a href="mailto:hello@ddeploy.com">hello@ddeploy.com</a></div></footer>
+</body>
+</html>

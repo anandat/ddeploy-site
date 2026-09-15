@@ -13,4 +13,9 @@
   <url><loc>https://ddeploy.com/contact.html</loc></url>
   <url><loc>https://ddeploy.com/blog/what-is-system-data-mac.html</loc></url>
   <url><loc>https://ddeploy.com/blog/daisydisk-alternatives.html</loc></url>
+  <url><loc>https://ddeploy.com/blog/delete-old-ios-simulator-runtimes.html</loc><priority>0.7</priority></url>
+  <url><loc>https://ddeploy.com/blog/project-build-folders-taking-space-mac.html</loc><priority>0.7</priority></url>
+  <url><loc>https://ddeploy.com/blog/docker-desktop-disk-space-mac.html</loc><priority>0.7</priority></url>
+  <url><loc>https://ddeploy.com/blog/time-machine-local-snapshots-taking-space.html</loc><priority>0.7</priority></url>
+  <url><loc>https://ddeploy.com/blog/whatsapp-mac-storage-huge.html</loc><priority>0.7</priority></url>
 </urlset>

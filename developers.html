@@ -42,17 +42,19 @@
       <p class="fine">Homebrew: <code>brew trust anandat/ddeploy &amp;&amp; brew install --cask anandat/ddeploy/ddeploy</code></p>
     </div>
 
-    <div class="mosaic">
-      <div class="mtile big c3 r2 t-blue"><span class="mlabel">● Docker</span><span class="mval">31.2 GB</span></div>
-      <div class="mtile big c3 r2 t-purple"><span class="mlabel">● Xcode</span><span class="mval">27.3 GB</span></div>
-      <div class="mtile c2 r2 t-tan"><span class="mlabel">● Ollama</span><span class="mval">48.9 GB</span></div>
-      <div class="mtile c2 t-green"><span class="mlabel">● Hugging Face</span><span class="mval" style="font-size:21px">15.2 GB</span></div>
-      <div class="mtile c2 t-pink"><span class="mlabel">● npm / pub / Gradle</span><span class="mval" style="font-size:21px">12.3 GB</span></div>
-      <div class="mtile c2 t-gray"><span class="mlabel">● Simulators</span><span class="mval" style="font-size:21px">9.8 GB</span></div>
-      <div class="mtile c2 spark">
-        <svg width="34" height="34" viewBox="0 0 16 16" fill="none" stroke="#fff" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M8 1.8 9.5 5.9l4.2 1.4-4.2 1.4L8 12.8 6.5 8.7 2.3 7.3 6.5 5.9 8 1.8Z"></path></svg>
+    <div class="ledger" id="scan">
+      <div class="lg-head"><span>Developer section</span><span>494 GB · 11 GB free</span></div>
+      <div class="lg-rows">
+        <div class="lg-row"><span>Docker images, build cache</span><span class="lg-lead"></span><span class="lg-size">31.2 GB</span><span class="lg-tag del">DELETE</span></div>
+        <div class="lg-row"><span>Xcode DerivedData</span><span class="lg-lead"></span><span class="lg-size">27.3 GB</span><span class="lg-tag del">DELETE</span></div>
+        <div class="lg-row"><span>npm, pub and Gradle caches</span><span class="lg-lead"></span><span class="lg-size">12.3 GB</span><span class="lg-tag del">DELETE</span></div>
+        <div class="lg-row"><span>Old iOS simulators</span><span class="lg-lead"></span><span class="lg-size">9.8 GB</span><span class="lg-tag del">DELETE</span></div>
+        <div class="lg-row"><span>Ollama models</span><span class="lg-lead"></span><span class="lg-size">48.9 GB</span><span class="lg-tag review">REVIEW</span></div>
+        <div class="lg-row"><span>Hugging Face cache</span><span class="lg-lead"></span><span class="lg-size">15.2 GB</span><span class="lg-tag review">REVIEW</span></div>
       </div>
-      <div class="mtile c2 freed"><b>38.9 GB freed</b><span>on the first clean</span></div>
+      <div class="lg-total"><span>Safe to remove</span><b>80.6 GB</b></div>
+      <a class="lg-btn" href="https://github.com/anandat/ddeploy-site/releases/latest/download/ddeploy.dmg">Clean the 4 safe items</a>
+      <p class="lg-note">Models are never preselected. Running containers and open projects are never touched.</p>
     </div>
   </div>
 </header>

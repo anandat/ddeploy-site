@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#F3F0E8">
+<title>WhatsApp is using 18 GB on your Mac. Where it is and what's safe to delete.</title>
+<meta name="description" content="The WhatsApp Mac app keeps a copy of every photo and video from every chat in a hidden Library folder, one folder per chat. Where it lives, how to see which chats are the problem, and why deleting the Mac copy is safe.">
+<link rel="canonical" href="https://ddeploy.com/blog/whatsapp-mac-storage-huge.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WhatsApp is using 18 GB on your Mac. Where it is and what's safe to delete.">
+<meta property="og:description" content="The WhatsApp Mac app keeps a copy of every photo and video from every chat in a hidden Library folder, one folder per chat. Where it lives, how to see which chats are the problem, and why deleting the Mac copy is safe.">
+<meta property="og:url" content="https://ddeploy.com/blog/whatsapp-mac-storage-huge.html">
+<meta property="og:image" content="https://ddeploy.com/assets/home.jpg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<link rel="stylesheet" href="../assets/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","headline":"WhatsApp is using 18 GB on your Mac","datePublished":"2026-09-15","dateModified":"2026-09-15","author":{"@type":"Organization","name":"ddeploy","url":"https://ddeploy.com/"},"publisher":{"@type":"Organization","name":"ddeploy","url":"https://ddeploy.com/"},"mainEntityOfPage":"https://ddeploy.com/blog/whatsapp-mac-storage-huge.html","description":"The WhatsApp Mac app keeps a copy of every photo and video from every chat in a hidden Library folder, one folder per chat. Where it lives, how to see which chats are the problem, and why deleting the Mac copy is safe."}
+</script>
+</head>
+<body>
+<nav><div class="wrap"><a class="brand" href="../"><img src="../assets/logo.svg" alt="" width="20" height="20">ddeploy</a><a class="link" href="../faq.html">FAQ</a><a class="link" href="../developers.html">Developers</a><a class="link" href="./">Blog</a><a class="cta" href="https://github.com/anandat/ddeploy-site/releases/latest/download/ddeploy.dmg">Download</a></div></nav>
+<article>
+  <div class="wrap narrow">
+    <h1>WhatsApp is using 18 GB on your Mac</h1>
+    <p class="date">15 September 2026</p>
+    <div class="ledger" style="margin:24px 0 32px">
+      <div class="lg-head"><span>Macintosh HD · Group Containers</span><span>hidden</span></div>
+      <div class="lg-rows">
+        <div class="lg-row"><span>WhatsApp media, every chat</span><span class="lg-lead"></span><span class="lg-size">18.2 GB</span><span class="lg-tag review">REVIEW</span></div>
+        <div class="lg-row"><span>WhatsApp databases and keys</span><span class="lg-lead"></span><span class="lg-size">kept</span><span class="lg-tag keep">KEEP</span></div>
+      </div>
+      <div class="lg-total"><span>Up to you</span><b>18.2 GB</b></div>
+      <p class="lg-note">Real number from the developer's own Mac.</p>
+    </div>
+    <p>The WhatsApp app for Mac stores a local copy of every photo, video and voice note you've viewed, in every chat. A group that passes one video a day for three years adds up to gigabytes. It all sits in a folder Finder hides, so Storage settings shows it as "System Data".</p>
+    <h2>Where it lives</h2>
+    <pre><code>~/Library/Group Containers/group.net.whatsapp.WhatsApp.shared/Message/Media/</code></pre>
+    <p>One folder per chat, named by WhatsApp's internal ID for the chat, not the person. That's why sorting by size doesn't tell you much on its own:</p>
+    <pre><code>du -sh ~/Library/Group\ Containers/group.net.whatsapp.WhatsApp.shared/Message/Media/* | sort -h | tail</code></pre>
+    <h2>Is it safe to delete?</h2>
+    <p>The Mac copy is a copy. The messages and their media stay in the chat, and the originals are on your phone (and in your phone's backup). Open an old photo again and WhatsApp fetches it again from your phone. One caveat: media that is very old and gone from your phone as well can't be fetched again, so treat deleting as "gone from this Mac" and keep anything you'd miss.</p>
+    <p>Don't touch anything outside <code>Message/Media</code> in that folder. The databases next to it are your message history on this Mac.</p>
+    <h2>In ddeploy</h2>
+    <p>WhatsApp shows as its own row, expandable chat by chat with real names (ddeploy reads them from WhatsApp's own database on your Mac; nothing leaves it). It's marked REVIEW and never preselected: tick the group with the good-morning videos, leave the family chat. Deleted media goes to the Trash.</p>
+    <p class="fine">More on Mac storage: <a href="delete-old-ios-simulator-runtimes.html">Old iOS simulator runtimes</a> · <a href="project-build-folders-taking-space-mac.html">Project build folders</a> · <a href="docker-desktop-disk-space-mac.html">Docker Desktop disk space</a> · <a href="time-machine-local-snapshots-taking-space.html">Time Machine local snapshots</a></p>
+    <div class="cta-box"><p style="margin:0 0 14px"><strong>See your own Mac itemised in under a minute. Free to scan.</strong></p><a class="btn" href="https://github.com/anandat/ddeploy-site/releases/latest/download/ddeploy.dmg">Download ddeploy</a></div>
+  </div>
+</article>
+<footer><div class="wrap"><span>© 2026 ddeploy</span><a href="../">Home</a><a href="./">Blog</a><a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a><a href="../refunds.html">Refunds</a><a href="mailto:hello@ddeploy.com">hello@ddeploy.com</a></div></footer>
+</body>
+</html>

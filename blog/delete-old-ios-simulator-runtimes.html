@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#F3F0E8">
+<title>Old iOS simulator runtimes: 55 GB you can delete in one command</title>
+<meta name="description" content="Every Xcode update leaves the previous iOS Simulator runtime behind, 7 to 10 GB each, and du can't see them. Where they live, how to list them with simctl, and the two commands that remove them safely.">
+<link rel="canonical" href="https://ddeploy.com/blog/delete-old-ios-simulator-runtimes.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Old iOS simulator runtimes: 55 GB you can delete in one command">
+<meta property="og:description" content="Every Xcode update leaves the previous iOS Simulator runtime behind, 7 to 10 GB each, and du can't see them. Where they live, how to list them with simctl, and the two commands that remove them safely.">
+<meta property="og:url" content="https://ddeploy.com/blog/delete-old-ios-simulator-runtimes.html">
+<meta property="og:image" content="https://ddeploy.com/assets/home.jpg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<link rel="stylesheet" href="../assets/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","headline":"Old iOS simulator runtimes are eating your Mac","datePublished":"2026-09-15","dateModified":"2026-09-15","author":{"@type":"Organization","name":"ddeploy","url":"https://ddeploy.com/"},"publisher":{"@type":"Organization","name":"ddeploy","url":"https://ddeploy.com/"},"mainEntityOfPage":"https://ddeploy.com/blog/delete-old-ios-simulator-runtimes.html","description":"Every Xcode update leaves the previous iOS Simulator runtime behind, 7 to 10 GB each, and du can't see them. Where they live, how to list them with simctl, and the two commands that remove them safely."}
+</script>
+</head>
+<body>
+<nav><div class="wrap"><a class="brand" href="../"><img src="../assets/logo.svg" alt="" width="20" height="20">ddeploy</a><a class="link" href="../faq.html">FAQ</a><a class="link" href="../developers.html">Developers</a><a class="link" href="./">Blog</a><a class="cta" href="https://github.com/anandat/ddeploy-site/releases/latest/download/ddeploy.dmg">Download</a></div></nav>
+<article>
+  <div class="wrap narrow">
+    <h1>Old iOS simulator runtimes are eating your Mac</h1>
+    <p class="date">15 September 2026</p>
+    <div class="ledger" style="margin:24px 0 32px">
+      <div class="lg-head"><span>Macintosh HD · Developer section</span><span>simctl</span></div>
+      <div class="lg-rows">
+        <div class="lg-row"><span>Old iOS simulator runtimes, seven of them</span><span class="lg-lead"></span><span class="lg-size">55.7 GB</span><span class="lg-tag del">DELETE</span></div>
+        <div class="lg-row"><span>Current runtime, iOS 26.5</span><span class="lg-lead"></span><span class="lg-size">10.6 GB</span><span class="lg-tag keep">KEEP</span></div>
+      </div>
+      <div class="lg-total"><span>Safe to remove</span><b>55.7 GB</b></div>
+      <p class="lg-note">Real numbers from the developer's own Mac.</p>
+    </div>
+    <p>Since Xcode 15, iOS simulator runtimes ship separately from Xcode. Every time you update Xcode or add a simulator for a new iOS version, a new runtime is downloaded. The old one is never removed. Each is 7 to 10 GB (iOS 26.5 is 10.6 GB). Seven of them is 55 GB, which is what one Mac had the first time we scanned it.</p>
+    <h2>Why you can't find them</h2>
+    <p>They are not folders. Xcode stores each runtime as a signed disk image (Apple calls it a cryptex) under <code>/Library/Developer/CoreSimulator/Images</code> and mounts it under <code>/Library/Developer/CoreSimulator/Volumes</code>. Finder shows almost nothing, <code>du -sh</code> under-reports them, and Storage settings lumps them into "System Data". The only tool that tells the truth is <code>simctl</code>.</p>
+    <h2>List yours</h2>
+    <pre><code>xcrun simctl runtime list</code></pre>
+    <p>Add <code>-j</code> for JSON. Each runtime carries a <code>sizeBytes</code> field, which is how ddeploy measures them:</p>
+    <pre><code>xcrun simctl runtime list -j | grep -E '"(identifier|sizeBytes)"'</code></pre>
+    <h2>Delete the ones you don't use</h2>
+    <p>Keep the runtime that matches the Xcode you build with, plus any iOS version you genuinely test on. Delete the rest. In Xcode: Settings → Components → Platforms, select a runtime, press the minus button. Or from Terminal, with the identifier from the list above:</p>
+    <pre><code>xcrun simctl runtime delete 9ED6EEF8-95A8-49C9-B7B5-9EE8F4E04B11</code></pre>
+    <p>Then clear out simulator devices whose runtime is now gone:</p>
+    <pre><code>xcrun simctl delete unavailable</code></pre>
+    <h2>What it costs you</h2>
+    <p>Nothing permanent. A deleted runtime is one download away (Xcode → Settings → Components) the next time you need that iOS version. Your projects, your apps and your simulators on the current runtime are untouched.</p>
+    <h2>In ddeploy</h2>
+    <p>The Developer section has an "Old iOS Runtimes" row. It reads sizes from <code>simctl</code>, the real number rather than <code>du</code>'s guess, keeps the newest runtime, and preselects the rest. One click.</p>
+    <p class="fine">More on Mac storage: <a href="project-build-folders-taking-space-mac.html">Project build folders</a> · <a href="docker-desktop-disk-space-mac.html">Docker Desktop disk space</a> · <a href="time-machine-local-snapshots-taking-space.html">Time Machine local snapshots</a> · <a href="whatsapp-mac-storage-huge.html">WhatsApp media on a Mac</a></p>
+    <div class="cta-box"><p style="margin:0 0 14px"><strong>See your own Mac itemised in under a minute. Free to scan.</strong></p><a class="btn" href="https://github.com/anandat/ddeploy-site/releases/latest/download/ddeploy.dmg">Download ddeploy</a></div>
+  </div>
+</article>
+<footer><div class="wrap"><span>© 2026 ddeploy</span><a href="../">Home</a><a href="./">Blog</a><a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a><a href="../refunds.html">Refunds</a><a href="mailto:hello@ddeploy.com">hello@ddeploy.com</a></div></footer>
+</body>
+</html>
