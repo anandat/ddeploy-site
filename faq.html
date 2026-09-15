@@ -24,6 +24,7 @@
     {"@type":"Question","name":"Why do some folders need Full Disk Access?","acceptedAnswer":{"@type":"Answer","text":"macOS protects places like iOS device backups, Messages data and parts of Library. Granting ddeploy Full Disk Access in System Settings lets it measure and clean them; without it those boxes simply read smaller."}},
     {"@type":"Question","name":"What happens after I delete caches?","acceptedAnswer":{"@type":"Answer","text":"They rebuild on demand. Docker re-pulls images, Xcode re-derives build data, package managers re-download what a project actually needs. The trade is disk space now for a somewhat slower first build or launch later."}},
     {"@type":"Question","name":"Does ddeploy collect any data?","acceptedAnswer":{"@type":"Answer","text":"No. There is no telemetry, no analytics and no account. The only network calls are the optional license activation and the Ask AI button, which opens your own browser."}},
+    {"@type":"Question","name":"How do I contact support?","acceptedAnswer":{"@type":"Answer","text":"Email hello@ddeploy.com. We reply within two working days."}},
     {"@type":"Question","name":"Can I get a refund?","acceptedAnswer":{"@type":"Answer","text":"Yes, within 14 days of purchase, no questions asked. Payments and refunds are handled by our merchant of record."}}
   ]
 }
@@ -52,6 +53,7 @@
     <div class="faq-item"><h3>Why does it ask for Full Disk Access?</h3><p>macOS protects some folders (iOS backups, Messages data, parts of Library). Granting Full Disk Access in System Settings lets ddeploy measure and clean them. Without it, the app still works, those boxes just read smaller than reality.</p></div>
     <div class="faq-item"><h3>What actually happens after I clean caches?</h3><p>They rebuild on demand: Docker re-pulls images when you use them, Xcode re-derives build data on the next build, npm and pip re-download what a project needs. You trade disk space now for a slightly slower first build later. Model libraries are different, a 40 GB Ollama model is a real re-download, which is why models are never preselected and can be deleted one at a time instead.</p></div>
     <div class="faq-item"><h3>Does ddeploy collect any data?</h3><p>No telemetry, no analytics, no account, no ads. The only network calls are license activation (if you buy Pro) and the Ask AI button, which opens your own browser with your own AI account.</p></div>
+    <div class="faq-item"><h3>How do I reach you?</h3><p>Email <a href="mailto:hello@ddeploy.com">hello@ddeploy.com</a>. We reply within two working days, usually sooner.</p></div>
     <div class="faq-item"><h3>Refunds?</h3><p>14 days, no questions asked, handled by our payment provider. Full <a href="refunds.html">refund policy</a>.</p></div>
     <div class="cta-box">
       <p style="margin:0 0 14px"><strong>Ready to see what your Mac is hiding?</strong></p>
@@ -59,6 +61,6 @@
     </div>
   </div>
 </article>
-<footer><div class="wrap"><span>© 2026 ddeploy · for macOS</span><a href="./">Home</a><a href="blog/">Blog</a><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a><a href="refunds.html">Refunds</a><a href="contact.html">Contact</a></div></footer>
+<footer><div class="wrap"><span>© 2026 ddeploy · for macOS</span><a href="./">Home</a><a href="blog/">Blog</a><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a><a href="refunds.html">Refunds</a><a href="mailto:hello@ddeploy.com">hello@ddeploy.com</a></div></footer>
 </body>
 </html>
