@@ -3,18 +3,20 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#0A66D0">
-<title>ddeploy — Your Mac says it's full. Here's why.</title>
-<meta name="description" content="A native Mac cleaner for everyone. See what's filling your Mac in plain English, clean the safe stuff with one button. Works fully offline, no account, no sign-up, nothing leaves your Mac. $9.99 once.">
+<meta name="theme-color" content="#F3F0E8">
+<title>ddeploy — Your disk, itemised. Free up space on your Mac.</title>
+<meta name="description" content="ddeploy lists what is using your Mac's storage, line by line, in plain English, including the 'System Data' Apple won't explain, and deletes the safe stuff with one click. Free to scan, $9.99 once to clean, nothing leaves your Mac.">
 <link rel="canonical" href="https://ddeploy.com/">
 <meta property="og:type" content="website">
-<meta property="og:title" content="ddeploy — Your Mac says it's full. Here's why.">
-<meta property="og:description" content="See what's filling your Mac in plain English and clean the safe stuff with one button. 100% offline, no account, nothing leaves your Mac.">
+<meta property="og:title" content="ddeploy — Your disk, itemised.">
+<meta property="og:description" content="See what is using your Mac's storage, line by line, in plain English. Delete the safe stuff with one click. Offline, no account, nothing leaves your Mac.">
 <meta property="og:url" content="https://ddeploy.com/">
 <meta property="og:image" content="https://ddeploy.com/assets/home.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="assets/style.css">
 <script type="application/ld+json">
 {
@@ -23,9 +25,9 @@
   "name": "ddeploy",
   "operatingSystem": "macOS 14.0 or later",
   "applicationCategory": "UtilitiesApplication",
-  "description": "A native macOS cleaner for everyone. Shows old downloads, hidden system files, screenshots, iPhone backups and unused apps in plain English and cleans the safe ones with one button. Works fully offline with no account.",
+  "description": "A native macOS cleaner. Lists what is using your storage line by line in plain English, including System Data, and deletes the safe items with one click. Works fully offline with no account.",
   "offers": [
-    { "@type": "Offer", "price": "0", "priceCurrency": "USD", "name": "Free — full scan" },
+    { "@type": "Offer", "price": "0", "priceCurrency": "USD", "name": "Free — full scan and first clean" },
     { "@type": "Offer", "price": "9.99", "priceCurrency": "USD", "name": "ddeploy Pro, lifetime" }
   ],
   "url": "https://ddeploy.com/"
@@ -36,116 +38,141 @@
 
 <nav>
   <div class="wrap">
-    <a class="brand" href="/"><img src="assets/logo.svg" alt="" width="22" height="22" style="border-radius:6px">ddeploy</a>
+    <a class="brand" href="/"><img src="assets/logo.svg" alt="" width="24" height="24">ddeploy</a>
     <a class="link" href="#how">How it works</a>
     <a class="link" href="#pricing">Pricing</a>
     <a class="link" href="faq.html">FAQ</a>
-    <a class="link" href="developers.html">For developers</a>
-    <a class="cta" href="https://github.com/anandat/ddeploy-site/releases/latest/download/ddeploy.dmg">Download Free</a>
+    <a class="link" href="developers.html">Developers</a>
+    <a class="cta" href="https://github.com/anandat/ddeploy-site/releases/latest/download/ddeploy.dmg">Download · 1.3 MB</a>
   </div>
 </nav>
 
 <header class="hero">
   <div class="wrap hero-grid">
     <div>
-      <h1>Your Mac says it's full. Here's why.</h1>
-      <p class="sub">ddeploy shows what's taking the space, in plain English, and clears the safe stuff with one button. Everything happens on your Mac. Nothing leaves it.</p>
+      <div class="eyebrow">Free scan · $9.99 to clean · macOS 14+</div>
+      <h1>Your disk, itemised.</h1>
+      <p class="sub">ddeploy lists what is using your Mac's storage, line by line, in plain English, and deletes the safe stuff with one click. Nothing leaves your Mac.</p>
       <div class="cta-row">
         <a class="btn" href="https://github.com/anandat/ddeploy-site/releases/latest/download/ddeploy.dmg">Download for Mac</a>
+        <a class="textlink" href="#scan">See a real scan →</a>
       </div>
-      <p class="fine"><span id="dl-count"></span>Free · no account · no sign-up · works offline · macOS 14+ · 1.3 MB · <a href="faq.html#install">install note</a></p>
+      <p class="fine"><span id="dl-count"></span>No account · no sign-up · works offline · notarized by Apple · <a href="faq.html#install">install note</a></p>
     </div>
 
-    <div class="mosaic">
-      <div class="mtile big c3 r2 t-blue"><span class="mlabel">● Big files you forgot</span><span class="mval">38.9 GB</span></div>
-      <div class="mtile big c3 r2 t-gray"><span class="mlabel">● Hidden system junk</span><span class="mval">31.0 GB</span></div>
-      <div class="mtile c2 r2 t-tan"><span class="mlabel">● Old iPhone backups</span><span class="mval">14.2 GB</span></div>
-      <div class="mtile c2 t-green"><span class="mlabel">● WhatsApp</span><span class="mval" style="font-size:21px">15.2 GB</span></div>
-      <div class="mtile c2 t-pink"><span class="mlabel">● Old downloads</span><span class="mval" style="font-size:21px">12.4 GB</span></div>
-      <div class="mtile c2 t-purple"><span class="mlabel">● Screenshots</span><span class="mval" style="font-size:21px">3.1 GB</span></div>
-      <div class="mtile c2 spark">
-        <svg width="34" height="34" viewBox="0 0 16 16" fill="none" stroke="#fff" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M8 1.8 9.5 5.9l4.2 1.4-4.2 1.4L8 12.8 6.5 8.7 2.3 7.3 6.5 5.9 8 1.8Z"></path></svg>
+    <div class="ledger" id="scan">
+      <div class="lg-head"><span>Macintosh HD</span><span>494 GB · 11 GB free</span></div>
+      <div class="lg-rows">
+        <div class="lg-row"><span>Old iOS simulator runtimes</span><span class="lg-lead"></span><span class="lg-size">55.7 GB</span><span class="lg-tag del">DELETE</span></div>
+        <div class="lg-row"><span>Project build folders</span><span class="lg-lead"></span><span class="lg-size">54.0 GB</span><span class="lg-tag del">DELETE</span></div>
+        <div class="lg-row"><span>Caches untouched for months</span><span class="lg-lead"></span><span class="lg-size">38.2 GB</span><span class="lg-tag del">DELETE</span></div>
+        <div class="lg-row"><span>Time Machine local snapshots</span><span class="lg-lead"></span><span class="lg-size">31.0 GB</span><span class="lg-tag del">DELETE</span></div>
+        <div class="lg-row"><span>WhatsApp media</span><span class="lg-lead"></span><span class="lg-size">18.2 GB</span><span class="lg-tag review">REVIEW</span></div>
+        <div class="lg-row"><span>Old iPhone backup</span><span class="lg-lead"></span><span class="lg-size">14.2 GB</span><span class="lg-tag review">REVIEW</span></div>
+        <div class="lg-row"><span>Photos, already in iCloud</span><span class="lg-lead"></span><span class="lg-size">13.0 GB</span><span class="lg-tag keep">KEEP</span></div>
+        <div class="lg-row"><span>Logs</span><span class="lg-lead"></span><span class="lg-size">4.1 GB</span><span class="lg-tag del">DELETE</span></div>
       </div>
-      <div class="mtile c2 freed"><b>46 GB back</b><span>on the first clean</span></div>
+      <div class="lg-total"><span>Safe to remove</span><b>183.0 GB</b></div>
+      <a class="lg-btn" href="https://github.com/anandat/ddeploy-site/releases/latest/download/ddeploy.dmg">Clean the 5 safe items</a>
+      <p class="lg-note">Scanned in 48 s. Real numbers from the developer's own Mac, September 2026. Yours will differ.</p>
     </div>
   </div>
 </header>
 
-<section id="how" style="padding-top:40px">
+<section id="how" class="ruled">
   <div class="wrap">
-    <div class="fcards">
-      <div class="fcard"><div class="fk blue">FIND THE BIG STUFF</div><h3>Old downloads, forgotten videos, iPhone backups from a phone you sold.</h3></div>
-      <div class="fcard"><div class="fk green">"SYSTEM DATA", EXPLAINED</div><h3>The mystery number in Storage settings, named and measured.</h3></div>
-      <div class="fcard"><div class="fk tan">NOT SURE? ASK</div><h3>Right-click anything: "is this safe to delete?"</h3></div>
+    <div class="three">
+      <div>
+        <div class="idx">01</div>
+        <h3>Scan</h3>
+        <p>Every folder measured, including the ones Finder hides. "System Data" gets a name and a size instead of a shrug.</p>
+      </div>
+      <div>
+        <div class="idx">02</div>
+        <h3>Read</h3>
+        <p>Plain-English labels, not paths. Anything you might still want is marked REVIEW and waits until you look at it.</p>
+      </div>
+      <div>
+        <div class="idx">03</div>
+        <h3>Clean</h3>
+        <p>One click. Your first clean is free. After that, cleaning is Pro: $9.99, once. No account, no subscription.</p>
+      </div>
     </div>
   </div>
 </section>
 
-<section style="padding-top:24px">
+<section class="ruled">
   <div class="wrap">
     <h2>What it looks like.</h2>
 
     <div class="split">
       <div class="copy">
-        <h3>One button</h3>
-        <p>The safe things are already switched on. Anything marked "review first" waits until you look at it.</p>
+        <h3>One button.</h3>
+        <p>Safe items are already ticked. Anything marked review first waits until you look at it. The number at the top is what you get back.</p>
       </div>
-      <img class="shot" src="assets/home.jpg" alt="ddeploy's home screen: a ring showing space you can get back, one Clean up button, and a plain-English list of old downloads, hidden system junk, screenshots, big files, iPhone backups and unused apps" width="2160" height="1464" fetchpriority="high" decoding="async">
+      <figure>
+        <img class="shot" src="assets/home.jpg" alt="ddeploy's home screen: a ring showing space you can get back, one Clean up button, and a plain-English list of old downloads, hidden system junk, screenshots, big files, iPhone backups and unused apps" width="2160" height="1464" fetchpriority="high" decoding="async">
+        <figcaption>Fig. 01 · Home. Safe items pre-ticked, review-first items wait.</figcaption>
+      </figure>
     </div>
 
     <div class="split flip">
       <div class="copy">
-        <h3>"System Data", itemised</h3>
-        <p>Library, snapshots, swap, purgeable. Named, measured, cleared where it's safe.</p>
+        <h3>"System Data", opened.</h3>
+        <p>Library, local snapshots, swap, purgeable space, caches. Each one named and measured, cleared where it's safe.</p>
       </div>
-      <img class="shot" src="assets/systemdata.jpg" alt="ddeploy's Hidden System Files screen breaking down Library folders, snapshots, swap and purgeable space" width="1600" height="980" loading="lazy" decoding="async">
+      <figure>
+        <img class="shot" src="assets/systemdata.jpg" alt="ddeploy's Hidden System Files screen breaking down Library folders, snapshots, swap and purgeable space" width="1600" height="980" loading="lazy" decoding="async">
+        <figcaption>Fig. 02 · Hidden system files, itemised.</figcaption>
+      </figure>
     </div>
 
     <div class="split">
       <div class="copy">
-        <h3>Look inside anything</h3>
+        <h3>Look inside anything.</h3>
         <p>Every folder sorted by size, live. Trash it from right there. It's the Trash, so you can change your mind.</p>
       </div>
-      <img class="shot" src="assets/explorer.jpg" alt="ddeploy's explorer view listing folders sorted by size" width="1600" height="980" loading="lazy" decoding="async">
+      <figure>
+        <img class="shot" src="assets/explorer.jpg" alt="ddeploy's explorer view listing folders sorted by size" width="1600" height="980" loading="lazy" decoding="async">
+        <figcaption>Fig. 03 · Explorer. Any folder, children sized and sorted.</figcaption>
+      </figure>
     </div>
   </div>
 </section>
 
-<section style="padding-top:20px">
+<section class="ruled">
   <div class="wrap">
     <h2>Everything stays on your Mac.</h2>
     <p class="lead">No account. No sign-up. No data collected. Turn wifi off and it works exactly the same.</p>
-    <div class="safety-card">
-      <ul class="safety">
-        <li>Nothing is ever uploaded, not even file names</li>
-        <li>No account, no email, no tracking</li>
-        <li>Asks before anything is removed</li>
-        <li>Your own files only ever go to the Trash</li>
-        <li>Hidden caches rebuild themselves when an app needs them</li>
-        <li>Photos, Documents, Desktop and mail are never touched</li>
-      </ul>
-    </div>
+    <ul class="promises">
+      <li><span>Uploads your files, or even their names</span><span class="lg-lead"></span><span class="lg-tag del">NEVER</span></li>
+      <li><span>Asks for an account or an email</span><span class="lg-lead"></span><span class="lg-tag del">NEVER</span></li>
+      <li><span>Deletes anything without showing you the list first</span><span class="lg-lead"></span><span class="lg-tag del">NEVER</span></li>
+      <li><span>Touches Photos, Documents, Desktop or Mail</span><span class="lg-lead"></span><span class="lg-tag del">NEVER</span></li>
+      <li><span>Sends your own files to the Trash, where you can get them back</span><span class="lg-lead"></span><span class="lg-tag ok">ALWAYS</span></li>
+      <li><span>Removes only caches that macOS rebuilds on its own</span><span class="lg-lead"></span><span class="lg-tag ok">ALWAYS</span></li>
+    </ul>
   </div>
 </section>
 
-<section style="padding-top:20px">
+<section class="ruled">
   <div class="wrap">
     <h2>Also in the box.</h2>
     <div class="grid">
-      <div class="tile t-blue"><h4>Apps you don't use</h4><p>Opened months ago, never since. Yours to keep or remove.</p></div>
-      <div class="tile t-green"><h4>Uninstall apps</h4><p>Removes the app and everything it hid in your Library. Tick what to keep.</p></div>
-      <div class="tile t-blue"><h4>Duplicates</h4><p>Identical files, byte for byte. Keeps the original, trashes the copies.</p></div>
-      <div class="tile t-green"><h4>Leftovers</h4><p>Bits left behind by apps you already deleted.</p></div>
-      <div class="tile t-tan"><h4>Big files</h4><p>Everything over 100 MB, with how long since you touched it.</p></div>
-      <div class="tile t-pink"><h4>Memory</h4><p>Quit the apps hogging RAM. Politely, so unsaved work still asks.</p></div>
-      <div class="tile t-purple"><h4>Look inside</h4><p>A size map of any folder. Finally see where it all went.</p></div>
-      <div class="tile t-gray"><h4>Native</h4><p>Real Mac app. 1.3 MB. Opens instantly.</p></div>
+      <div class="tile"><div class="idx">01</div><h4>Uninstall apps</h4><p>The app and everything it hid in your Library. Untick what to keep.</p></div>
+      <div class="tile"><div class="idx">02</div><h4>Duplicates</h4><p>Identical files, byte for byte. Keeps the original, trashes the copies.</p></div>
+      <div class="tile"><div class="idx">03</div><h4>Apps you don't use</h4><p>Opened months ago, never since. Yours to keep or remove.</p></div>
+      <div class="tile"><div class="idx">04</div><h4>Leftovers</h4><p>Bits left behind by apps you already deleted.</p></div>
+      <div class="tile"><div class="idx">05</div><h4>Big files</h4><p>Everything over 100 MB, with how long since you touched it.</p></div>
+      <div class="tile"><div class="idx">06</div><h4>Memory</h4><p>Quit the apps hogging RAM. Politely, so unsaved work still asks.</p></div>
+      <div class="tile"><div class="idx">07</div><h4>Look inside</h4><p>A size map of any folder. See where it all went.</p></div>
+      <div class="tile"><div class="idx">08</div><h4>Native</h4><p>A real Mac app. 1.3 MB. Opens instantly.</p></div>
     </div>
-    <p style="margin-top:18px; color:var(--faint); font-size:14.5px">Write code or run AI models? ddeploy notices Xcode, Docker and Ollama on its own and adds a Developer section. <a href="developers.html">See what it cleans →</a></p>
+    <p class="fine">Write code or run AI models? ddeploy notices Xcode, Docker and Ollama on its own and adds a Developer section. <a href="developers.html">See what it cleans →</a></p>
   </div>
 </section>
 
-<section id="pricing" style="padding-top:20px">
+<section id="pricing" class="ruled">
   <div class="wrap">
     <h2 style="text-align:center">$9.99. Once.</h2>
     <div class="pricing">
@@ -154,9 +181,9 @@
         <div class="price">$0</div>
         <div class="per">forever</div>
         <ul>
-          <li>See everything</li>
+          <li>See everything, every size</li>
           <li>Look inside + System Data</li>
-          <li>Ask AI</li>
+          <li>Ask AI about any item</li>
           <li>Your first clean, free</li>
         </ul>
         <a class="btn ghost" href="https://github.com/anandat/ddeploy-site/releases/latest/download/ddeploy.dmg">Download</a>
@@ -172,7 +199,7 @@
           <li>1 Mac per key</li>
         </ul>
         <a class="btn" href="https://checkout.dodopayments.com/buy/pdt_0NndzMAfBn2lenIcj7Xk3?quantity=1&redirect_url=https%3A%2F%2Fddeploy.com%2Fthanks.html">Buy Pro, $9.99</a>
-        <p class="fine" style="margin-top:10px">Secure checkout by Dodo Payments. Your key arrives by email and activates inside the app.</p>
+        <p class="fine">Secure checkout by Dodo Payments. Your key arrives by email and activates inside the app. 14-day refund, no questions.</p>
       </div>
     </div>
   </div>
@@ -190,7 +217,7 @@
   </div>
 </section>
 
-<section style="padding-top:20px">
+<section class="ruled">
   <div class="wrap narrow">
     <h2>Questions, answered.</h2>
     <div class="faq-item">
@@ -209,18 +236,18 @@
       <h3>Why is "System Data" so huge?</h3>
       <p>Mine was 206 GB. <a href="blog/system-data-mac.html">Here's where it lives.</a></p>
     </div>
-    <p style="margin-top:22px"><a href="faq.html">All questions →</a></p>
+    <p style="margin-top:22px"><a class="textlink" href="faq.html">All questions →</a></p>
   </div>
 </section>
 
-<section id="reviews" style="padding-top:20px">
+<section id="reviews" class="ruled">
   <div class="wrap">
     <div class="rev-head">
       <div>
         <h2>What people say.</h2>
         <p class="lead" id="rev-summary">No reviews yet. Be the first.</p>
       </div>
-      <a class="btn" href="https://github.com/anandat/ddeploy-site/issues/new?template=review.yml">Write a review</a>
+      <a class="btn ghost" href="https://github.com/anandat/ddeploy-site/issues/new?template=review.yml">Write a review</a>
     </div>
     <div class="rev-grid" id="rev-grid"></div>
     <p class="fine">Reviews are public GitHub issues on the ddeploy-site repo, so they need a GitHub login and can't be edited by us. Stars, text and your GitHub name are shown here as posted. <a href="https://github.com/anandat/ddeploy-site/issues?q=label%3Areview">See all</a> · <a href="https://github.com/anandat/ddeploy-site/discussions">Questions go on the board</a></p>
