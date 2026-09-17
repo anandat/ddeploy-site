@@ -287,3 +287,5 @@ article .ledger .lg-row { font-size: 13.5px; }
   .fold-bar { flex-wrap: wrap; row-gap: 6px; }
   .scan-grid { grid-template-columns: 1fr; gap: 28px; }
 }
+
+nav .buy { font-weight: 700; color: var(--ink); }
