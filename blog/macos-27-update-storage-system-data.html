@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#F3F0E8">
+<title>macOS 27 update ate 15 GB of your storage. Here's where it went and how to get it back.</title>
+<meta name="description" content="After updating to macOS 27, System Data jumped and free space dropped by 15 GB or more. It is the pre-update snapshot, Apple Intelligence models and rebuilt caches, not the OS. How to check each one and what is safe to delete.">
+<link rel="canonical" href="https://ddeploy.com/blog/macos-27-update-storage-system-data.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="macOS 27 update ate 15 GB of your storage. Here's where it went and how to get it back.">
+<meta property="og:description" content="After updating to macOS 27, System Data jumped and free space dropped by 15 GB or more. It is the pre-update snapshot, Apple Intelligence models and rebuilt caches, not the OS. How to check each one and what is safe to delete.">
+<meta property="og:url" content="https://ddeploy.com/blog/macos-27-update-storage-system-data.html">
+<meta property="og:image" content="https://ddeploy.com/assets/home.jpg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<link rel="stylesheet" href="../assets/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","headline":"macOS 27 update ate 15 GB of your storage. Here's where it went and how to get it back.","datePublished":"2026-09-20","dateModified":"2026-09-20","author":{"@type":"Organization","name":"ddeploy","url":"https://ddeploy.com/"},"publisher":{"@type":"Organization","name":"ddeploy","url":"https://ddeploy.com/"},"mainEntityOfPage":"https://ddeploy.com/blog/macos-27-update-storage-system-data.html","description":"After updating to macOS 27, System Data jumped and free space dropped by 15 GB or more. It is the pre-update snapshot, Apple Intelligence models and rebuilt caches, not the OS. How to check each one and what is safe to delete."}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"Why did System Data grow after updating to macOS 27?","acceptedAnswer":{"@type":"Answer","text":"Three things land in System Data after a major macOS update: the local snapshot macOS takes before upgrading, Apple Intelligence models it downloads on supported Macs, and caches and Spotlight indexes that are rebuilt from scratch. The snapshot is usually the biggest and is safe to delete with tmutil."}},
+{"@type":"Question","name":"Is it safe to delete the snapshot macOS made before the update?","acceptedAnswer":{"@type":"Answer","text":"Yes, once you are happy with the update. Deleting a Time Machine local snapshot only removes the ability to roll back to that exact moment from the local copy. Your Time Machine backup disk is untouched. Do not delete the com.apple.os.update snapshot, which is the system you are booted from."}},
+{"@type":"Question","name":"Will the space come back on its own?","acceptedAnswer":{"@type":"Answer","text":"Some of it. macOS is supposed to thin local snapshots within about 24 hours and clears its own update staging files. Rebuilt caches are permanent but small. Apple Intelligence models stay until you turn the feature off."}}
+]}
+</script>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "122311ba2768424b86fb279c179ac213"}'></script><!-- End Cloudflare Web Analytics -->
+</head>
+<body>
+<nav><div class="wrap"><a class="brand" href="../"><img src="../assets/logo.svg" alt="" width="20" height="20">ddeploy</a><a class="link" href="../faq.html">FAQ</a><a class="link" href="../developers.html">Developers</a><a class="link" href="./">Blog</a><a class="cta" href="../download.html">Download</a></div></nav>
+<article>
+  <div class="wrap narrow">
+    <h1>macOS 27 update ate 15 GB of your storage. Here's where it went and how to get it back.</h1>
+    <p class="date">20 September 2026</p>
+    <div class="ledger" style="margin:24px 0 32px">
+      <div class="lg-head"><span>Macintosh HD · after the update</span><span>typical</span></div>
+      <div class="lg-rows">
+        <div class="lg-row"><span>Local snapshot taken before the upgrade</span><span class="lg-lead"></span><span class="lg-size">8–20 GB</span><span class="lg-tag del">DELETE</span></div>
+        <div class="lg-row"><span>Apple Intelligence models</span><span class="lg-lead"></span><span class="lg-size">~7 GB</span><span class="lg-tag review">REVIEW</span></div>
+        <div class="lg-row"><span>Caches and Spotlight index, rebuilt</span><span class="lg-lead"></span><span class="lg-size">2–5 GB</span><span class="lg-tag keep">KEEP</span></div>
+        <div class="lg-row"><span>Update staging files, /Library/Updates</span><span class="lg-lead"></span><span class="lg-size">0.5–3 GB</span><span class="lg-tag keep">KEEP</span></div>
+        <div class="lg-row"><span>The macOS volume itself, bigger this year</span><span class="lg-lead"></span><span class="lg-size">2–3 GB</span><span class="lg-tag keep">KEEP</span></div>
+      </div>
+      <div class="lg-total"><span>Safe to remove</span><b>8–20 GB</b></div>
+      <p class="lg-note">Typical sizes people reported after the macOS 27 (Golden Gate) update. Yours will differ; the commands below give your own numbers.</p>
+    </div>
+
+    <p>You updated to macOS 27, and afterwards Storage settings showed 15 GB less free space, and a "System Data" bar that had grown by twice that. Threads about it are all over r/mac and r/MacOS this week, including one Mac mini reporting 400 GB of System Data out of nowhere. The good news: almost none of it is the operating system. It is leftovers of the update process, and most of it is one file you can delete in ten seconds.</p>
+
+    <h2>1. The snapshot macOS took before upgrading</h2>
+    <p>Before a major update, macOS takes an APFS snapshot of your startup disk so it can roll back if the install fails. If Time Machine is on, there is an hourly local snapshot too. Each one pins every file that existed at that moment, including the entire previous macOS. On a busy Mac that is 8 to 20 GB, and it counts as System Data because there is no folder for it.</p>
+    <p>macOS is supposed to delete these within about 24 hours. It often doesn't. List them:</p>
+    <pre><code>tmutil listlocalsnapshots /</code></pre>
+    <p>You will see lines like <code>com.apple.TimeMachine.2026-09-19-183012.local</code>. Anything dated before your update is the culprit. Delete it by its date:</p>
+    <pre><code>sudo tmutil deletelocalsnapshots 2026-09-19-183012</code></pre>
+    <p>One line you must leave alone: <code>com.apple.os.update-…</code>. That is the sealed system you are booted from, not a backup, and tmutil will refuse anyway. Everything else in the list is fair game once you are happy with the update. Your real Time Machine backups on the external disk are not affected.</p>
+
+    <h2>2. Apple Intelligence models</h2>
+    <p>On Macs that support it, the update turns Apple Intelligence on and downloads its on-device models into <code>/System/Library/AssetsV2</code>. Reports put it around 7 GB. If you use it, that space is the price. If you don't, turn it off in <strong>System Settings → Apple Intelligence &amp; Siri</strong> and macOS removes the models; give it a little while and a restart. You cannot delete them by hand, the folder is protected.</p>
+
+    <h2>3. Caches and the Spotlight index</h2>
+    <p>A major update invalidates every app cache and rebuilds the Spotlight index from scratch. For a few days the disk churns and System Data floats up and down by a few GB. This settles on its own. Clearing <code>~/Library/Caches</code> now just makes the apps rebuild it again.</p>
+
+    <h2>4. Update staging files</h2>
+    <p><code>/Library/Updates</code> holds the downloaded update payload, usually under 1 GB after a successful install, sometimes 3 GB. Software Update cleans it up. Deleting it by hand can leave Software Update confused about what it already has, so leave it.</p>
+
+    <h2>5. The OS really is a bit bigger</h2>
+    <p>Each major macOS adds a couple of GB to the sealed system volume. That shows under "macOS" in Storage settings, not System Data, and there is nothing to do about it.</p>
+
+    <h2>The Storage pane is lying to you anyway</h2>
+    <p>Storage settings is a cached estimate. Right after an update it can sit on "Calculating…" for hours, show System Data at three times its real size, or report 50 GB used on a disk that is clearly fuller than that. Do not make decisions from it this week. The real number, in Terminal:</p>
+    <pre><code>df -h /</code></pre>
+    <p>"Avail" is what you can actually write. Finder's "available" adds purgeable space to it, which macOS frees on its own when something needs room, so those two numbers disagree by design.</p>
+
+    <h2>If it's 100 GB or more, look for a leftover volume</h2>
+    <p>The 400 GB Mac mini case is not caches. Two things make System Data jump by hundreds of GB on one machine and not another:</p>
+    <pre><code>diskutil apfs list</code></pre>
+    <p>Look for a second "Data" volume in the container. If the Mac ever had a clean install, a beta, or a second macOS on it, the old Data volume can still be there, and Storage settings counts every byte of it as System Data. Then:</p>
+    <pre><code>sudo du -xsh /private/var/* 2&gt;/dev/null | sort -h | tail -5</code></pre>
+    <p>which shows the biggest things under <code>/private/var</code>, where update leftovers, swap and logs live. A single 100 GB entry there is a crashed installer or a runaway log, both safe to remove once you know which.</p>
+
+    <h2>What not to do</h2>
+    <ul>
+      <li>Don't reinstall macOS to fix it. The snapshot comes back with the reinstall.</li>
+      <li>Don't touch <code>/System</code>. It is sealed, and the space there is under "macOS", not System Data.</li>
+      <li>Don't run a "cleaner" that deletes <code>~/Library/Caches</code> wholesale the week after an update. You are paying to rebuild caches twice.</li>
+    </ul>
+
+    <h2>In ddeploy</h2>
+    <p>The <strong>System Data</strong> card lists local snapshots with their sizes and a Purge button, measures <code>~/Library</code> and <code>/private/var</code> folder by folder instead of trusting the Storage pane, and marks each item Delete, Review or Keep so you are not guessing. Scanning is free.</p>
+
+    <p class="fine">More on Mac storage: <a href="what-is-system-data-mac.html">What is System Data on a Mac?</a> · <a href="time-machine-local-snapshots-taking-space.html">Time Machine local snapshots</a> · <a href="delete-old-ios-simulator-runtimes.html">Old iOS simulator runtimes</a> · <a href="docker-desktop-disk-space-mac.html">Docker Desktop disk space</a></p>
+    <div class="cta-box"><p style="margin:0 0 14px"><strong>See where your 15 GB went, itemised, in under a minute. Free to scan.</strong></p><a class="btn" href="../download.html">Download ddeploy</a></div>
+  </div>
+</article>
+<footer><div class="wrap"><span>© 2026 ddeploy</span><a href="../">Home</a><a href="./">Blog</a><a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a><a href="../refunds.html">Refunds</a><a href="mailto:hello@ddeploy.com">hello@ddeploy.com</a></div></footer>
+</body>
+</html>
