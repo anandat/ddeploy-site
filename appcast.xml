@@ -2,6 +2,14 @@
 <rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle">
   <channel>
     <item>
+      <title>ddeploy 1.0.7</title>
+      <pubDate>Tue, 29 Sep 2026 19:32:19 -0000</pubDate>
+      <sparkle:version>202609300101</sparkle:version>
+      <sparkle:shortVersionString>1.0.7</sparkle:shortVersionString>
+      <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+      <enclosure url="https://github.com/anandat/ddeploy-site/releases/download/v1.0.7/ddeploy-1.0.7.dmg" sparkle:edSignature="yaaHYcLaEBvIJl51IIfMtNVCixex9B1L1p6fhE+q+/D4CX579P1szXKXjZU/QpI3eInaQkINdBW+Z/fJZLfwBQ==" length="4213724" type="application/octet-stream"/>
+    </item>
+    <item>
       <title>ddeploy 1.0.6</title>
       <pubDate>Sat, 19 Sep 2026 14:25:18 -0000</pubDate>
       <sparkle:version>202609191948</sparkle:version>
