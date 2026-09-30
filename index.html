@@ -26,7 +26,7 @@
   "operatingSystem": "macOS 14.0 or later",
   "processorRequirements": "Apple Silicon or Intel (universal binary)",
   "applicationCategory": "UtilitiesApplication",
-  "description": "A native macOS cleaner. Lists what is using your storage line by line in plain English, including System Data, and deletes the safe items with one click. Works fully offline with no account.",
+  "description": "A native macOS cleaner. Lists what is using your storage line by line in plain English, including System Data, and deletes the safe items with one click. Old downloads can go to the Trash on their own. Works fully offline with no account.",
   "offers": [
     { "@type": "Offer", "price": "0", "priceCurrency": "USD", "name": "Free — full scan and first clean" },
     { "@type": "Offer", "price": "9.99", "priceCurrency": "USD", "name": "ddeploy Pro, lifetime" }
@@ -119,6 +119,11 @@
   <div class="wrap reveal">
     <h2>What it looks like.</h2>
 
+    <figure class="demo">
+      <video class="shot" id="demo" src="assets/ddeploy-demo.mp4" poster="assets/ddeploy-demo-poster.jpg" width="1920" height="1080" muted loop playsinline preload="none" controls aria-label="ddeploy in 50 seconds: a scan finds 93.6 GB, safe cards are pre-ticked, a clean asks you to read the list first, the Explore map, and the new Downloads rule that moves old downloads to the Trash"></video>
+      <figcaption>Fig. 00 · 50 seconds, no sound. Scan, read, clean, look inside, and new: downloads that clean up after themselves.</figcaption>
+    </figure>
+
     <div class="split">
       <div class="copy">
         <h3>One button.</h3>
@@ -132,23 +137,35 @@
 
     <div class="split flip">
       <div class="copy">
+        <div class="eyebrow new">New</div>
+        <h3>Downloads that clean up after themselves.</h3>
+        <p>Set a rule once, like 30 days unopened. When a download's time is up it goes to the Trash on its own, and Put Back brings it home. Keep anything with one click, or tag it in Finder and it's never touched. New downloads can ask when they should go: in an hour, a day, ten days, or never.</p>
+      </div>
+      <figure>
+        <img class="shot" src="assets/downloads.jpg" alt="ddeploy's Downloads screen: the rule, move old downloads to the Trash after 30 days unopened, switched on, and below it every download with when it goes and a Keep button" width="2200" height="1624" loading="lazy" decoding="async">
+        <figcaption>Fig. 02 · Downloads. The rule on top, every file below with when it goes.</figcaption>
+      </figure>
+    </div>
+
+    <div class="split">
+      <div class="copy">
         <h3>"System Data", opened.</h3>
         <p>Library, local snapshots, swap, purgeable space, caches. Each one named and measured, cleared where it's safe.</p>
       </div>
       <figure>
         <img class="shot" src="assets/systemdata.jpg" alt="ddeploy's Hidden System Files screen breaking down Library folders, snapshots, swap and purgeable space" width="1600" height="980" loading="lazy" decoding="async">
-        <figcaption>Fig. 02 · Hidden system files, itemised.</figcaption>
+        <figcaption>Fig. 03 · Hidden system files, itemised.</figcaption>
       </figure>
     </div>
 
-    <div class="split">
+    <div class="split flip">
       <div class="copy">
         <h3>Look inside anything.</h3>
         <p>A map of any folder, big blocks are big things, and folders open into their own folders right on the tile. One click tells you what a box is, two clicks open it. Pick anything, keep looking, then one Trash. It's the Trash, so you can change your mind.</p>
       </div>
       <figure>
         <img class="shot" src="assets/treemap.jpg" alt="ddeploy's Explore map of a Development folder: every project a block sized by how much space it takes, build folders and caches nested inside" width="2400" height="1193" loading="lazy">
-        <figcaption>Fig. 03 · Explore. Any folder, its folders inside it, sized.</figcaption>
+        <figcaption>Fig. 04 · Explore. Any folder, its folders inside it, sized.</figcaption>
       </figure>
     </div>
   </div>
@@ -163,6 +180,7 @@
       <li><span>Asks for an account or an email</span><span class="lg-lead"></span><span class="lg-tag del">NEVER</span></li>
       <li><span>Deletes anything without showing you the list first</span><span class="lg-lead"></span><span class="lg-tag del">NEVER</span></li>
       <li><span>Touches Photos, Documents, Desktop or Mail</span><span class="lg-lead"></span><span class="lg-tag del">NEVER</span></li>
+      <li><span>Moves a download you tagged in Finder or marked Keep</span><span class="lg-lead"></span><span class="lg-tag del">NEVER</span></li>
       <li><span>Sends your own files to the Trash, where you can get them back</span><span class="lg-lead"></span><span class="lg-tag ok">ALWAYS</span></li>
       <li><span>Removes only caches that macOS rebuilds on its own</span><span class="lg-lead"></span><span class="lg-tag ok">ALWAYS</span></li>
     </ul>
@@ -209,6 +227,7 @@
         <ul>
           <li>Everything in Free</li>
           <li>Unlimited cleaning</li>
+          <li>Downloads that clean up after themselves</li>
           <li>Developer tools</li>
           <li>1 Mac per key</li>
         </ul>
@@ -330,6 +349,12 @@ fetch('https://api.github.com/repos/anandat/ddeploy-site/releases').then(r=>r.js
   var el=document.getElementById('dl-count');
   if(el&&n>=500){ el.textContent=n.toLocaleString()+' downloads'; el.hidden=false; }
 }).catch(function(){});
+(function(){
+  // The demo loads and plays only while it is on screen; reduced motion gets the poster and the controls.
+  var v=document.getElementById('demo');
+  if(!v||!('IntersectionObserver' in window)||matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  new IntersectionObserver(function(en){ en.forEach(function(e){ if(e.isIntersecting){ v.play().catch(function(){}); } else { v.pause(); } }); }, {threshold:0.4}).observe(v);
+})();
 (function(){
   var els=document.querySelectorAll('.reveal');
   if(!('IntersectionObserver' in window)){ els.forEach(function(e){e.classList.add('in')}); return; }

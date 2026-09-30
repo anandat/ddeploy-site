@@ -106,6 +106,9 @@ section.ruled > .wrap { border-top: 1px solid var(--rule); padding-top: 56px; }
 figure { margin: 0; }
 figcaption { font-family: var(--mono); font-size: 12px; letter-spacing: 0.04em; color: var(--faint); margin-top: 10px; }
 .shot { border: 1px solid var(--rule); }
+.demo { margin-top: 36px; }
+.eyebrow.new { color: var(--accent); margin-bottom: 12px; }
+.demo video { display: block; width: 100%; height: auto; background: var(--card); }
 
 /* Promises: a ledger of what never happens */
 .promises { list-style: none; padding: 0; margin: 30px 0 0; border-top: 1px solid var(--rule); }
