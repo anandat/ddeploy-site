@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#F3F0E8">
+<title>Not enough free space to install macOS 27? Free 40 GB without deleting your files.</title>
+<meta name="description" content="macOS 27 Golden Gate needs about 35 to 40 GB free to install. How much you really have, and seven places to free it in order of GB per minute, none of which touch your documents or photos.">
+<link rel="canonical" href="https://ddeploy.com/blog/not-enough-space-to-install-macos-27.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Not enough free space to install macOS 27? Free 40 GB without deleting your files.">
+<meta property="og:description" content="macOS 27 Golden Gate needs about 35 to 40 GB free to install. How much you really have, and seven places to free it in order of GB per minute, none of which touch your documents or photos.">
+<meta property="og:url" content="https://ddeploy.com/blog/not-enough-space-to-install-macos-27.html">
+<meta property="og:image" content="https://ddeploy.com/assets/home.jpg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<link rel="stylesheet" href="../assets/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","headline":"Not enough free space to install macOS 27? Free 40 GB without deleting your files.","datePublished":"2026-09-30","dateModified":"2026-09-30","author":{"@type":"Organization","name":"ddeploy","url":"https://ddeploy.com/"},"publisher":{"@type":"Organization","name":"ddeploy","url":"https://ddeploy.com/"},"mainEntityOfPage":"https://ddeploy.com/blog/not-enough-space-to-install-macos-27.html","description":"macOS 27 Golden Gate needs about 35 to 40 GB free to install. How much you really have, and seven places to free it in order of GB per minute, none of which touch your documents or photos."}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"How much free space do I need to install macOS 27?","acceptedAnswer":{"@type":"Answer","text":"The installer is about 16 to 19 GB depending on how you download it, and the install needs room on top of that to unpack and to keep the old system until it finishes. Plan on 35 to 40 GB free. After the first login Apple Intelligence downloads another 14 to 30 GB on supported Macs, so more is better."}},
+{"@type":"Question","name":"Why does my Mac say there is not enough space when Finder shows plenty?","acceptedAnswer":{"@type":"Answer","text":"Finder and Storage settings count purgeable space as available. Purgeable space is mostly local Time Machine snapshots and iCloud files macOS could remove. Run df -h / in Terminal: the Avail column is what the disk can actually take right now. Deleting local snapshots with tmutil usually closes the gap."}},
+{"@type":"Question","name":"Do I need to erase my Mac to install macOS 27 if the disk is full?","acceptedAnswer":{"@type":"Answer","text":"No. Freeing 35 to 40 GB is almost always possible without touching your own files: local snapshots, old iPhone backups, leftover installers, caches and developer tools usually add up to more than that."}}
+]}
+</script>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "122311ba2768424b86fb279c179ac213"}'></script><!-- End Cloudflare Web Analytics -->
+</head>
+<body>
+<nav><div class="wrap"><a class="brand" href="../"><img src="../assets/logo.svg" alt="" width="20" height="20">ddeploy</a><a class="link" href="../faq.html">FAQ</a><a class="link" href="../developers.html">Developers</a><a class="link" href="./">Blog</a><a class="cta" href="../download.html">Download</a></div></nav>
+<article>
+  <div class="wrap narrow">
+    <h1>Not enough free space to install macOS 27? Free 40 GB without deleting your files.</h1>
+    <p class="date">30 September 2026</p>
+    <div class="ledger" style="margin:24px 0 32px">
+      <div class="lg-head"><span>Space to install macOS 27</span><span>typical</span></div>
+      <div class="lg-rows">
+        <div class="lg-row"><span>Local snapshots</span><span class="lg-lead"></span><span class="lg-size">5–60 GB</span><span class="lg-tag del">DELETE</span></div>
+        <div class="lg-row"><span>Old "Install macOS" apps</span><span class="lg-lead"></span><span class="lg-size">0–19 GB</span><span class="lg-tag del">DELETE</span></div>
+        <div class="lg-row"><span>Old iPhone and iPad backups</span><span class="lg-lead"></span><span class="lg-size">10–80 GB</span><span class="lg-tag review">REVIEW</span></div>
+        <div class="lg-row"><span>Installers and disk images in Downloads</span><span class="lg-lead"></span><span class="lg-size">1–20 GB</span><span class="lg-tag review">REVIEW</span></div>
+        <div class="lg-row"><span>Caches and logs</span><span class="lg-lead"></span><span class="lg-size">2–10 GB</span><span class="lg-tag del">DELETE</span></div>
+        <div class="lg-row"><span>Xcode, Docker, build folders</span><span class="lg-lead"></span><span class="lg-size">0–100 GB</span><span class="lg-tag review">REVIEW</span></div>
+        <div class="lg-row"><span>Your documents and photos</span><span class="lg-lead"></span><span class="lg-size">—</span><span class="lg-tag keep">KEEP</span></div>
+      </div>
+      <div class="lg-total"><span>You need about</span><b>35–40 GB</b></div>
+      <p class="lg-note">Typical sizes on Macs that hit the "not enough space" message. The commands below give your own numbers.</p>
+    </div>
+
+    <p>You clicked Upgrade Now on macOS 27 Golden Gate, or on 27.0.1 this week, and got the message that there isn't enough free space. Maybe Finder even says you have 30 GB free. Here is how much the update really needs, why the numbers disagree, and where to find the space in the order that frees the most for the least effort. Nothing here touches your documents, photos or music.</p>
+
+    <h2>How much space macOS 27 needs</h2>
+    <p>The installer is about 16 to 19 GB depending on whether it comes through Software Update or as a full installer. The install then needs room to unpack and to keep your current system until the new one boots. Plan on <strong>35 to 40 GB free</strong>. There is one more thing people get caught by: after the first login, Apple Intelligence downloads its models, 14 to 30 GB on supported Macs, and macOS 27 has no switch to stop it. If you land at 2 GB free after the install, you will be full again within the day. <a href="apple-intelligence-storage-macos-27.html">More on that here.</a></p>
+
+    <h2>First, the real number</h2>
+    <p>Finder's "available" and Storage settings both include <em>purgeable</em> space: files macOS says it could remove if it had to, mostly local snapshots and iCloud copies. The installer can't always use it. To see what the disk can take right now:</p>
+    <pre><code>df -h /</code></pre>
+    <p>Look at the <strong>Avail</strong> column. If it is much lower than what Finder claims, step 1 is your answer.</p>
+
+    <h2>1. Delete local snapshots (the biggest, fastest win)</h2>
+    <p>Time Machine keeps hourly snapshots on the Mac itself, and macOS takes one before every update. Each pins files you have since deleted or changed. On a full disk they are often 20 GB or more.</p>
+    <pre><code>tmutil listlocalsnapshots /</code></pre>
+    <p>Delete each one by its date:</p>
+    <pre><code>sudo tmutil deletelocalsnapshots 2026-09-28-101500</code></pre>
+    <p>Your backups on the Time Machine drive are not affected. Leave any <code>com.apple.os.update-…</code> line alone. Details in <a href="time-machine-local-snapshots-taking-space.html">Time Machine local snapshots</a>.</p>
+
+    <h2>2. Old macOS installers</h2>
+    <p>An installer you downloaded yourself for Sonoma, Sequoia or Tahoe is still 12 to 19 GB in your Applications folder.</p>
+    <pre><code>ls -d /Applications/Install\ macOS*.app</code></pre>
+    <p>Keep <em>Install macOS Golden Gate</em> if that is the one you are about to run. Move the others to the Trash.</p>
+
+    <h2>3. Old iPhone and iPad backups</h2>
+    <p>Every device you have backed up to this Mac has a full backup in your Library, and the old ones are never removed. If you are also setting up a new iPhone this month, this is the one to look at. <strong>System Settings → General → Storage → iOS Files</strong> shows them with dates and sizes. Keep the latest backup of the phone you use; the rest can usually go. Walkthrough in <a href="delete-old-iphone-backups-mac.html">Old iPhone backups on your Mac</a>.</p>
+
+    <h2>4. Your Downloads folder</h2>
+    <p>Open Downloads in Finder, switch to list view and sort by Size. App installers (<code>.dmg</code>, <code>.pkg</code>) and <code>.zip</code> files you already opened are usually the biggest things there, and you will never open them again. This one is your call, which is why it is fourth.</p>
+
+    <h2>5. Caches and logs</h2>
+    <p><code>~/Library/Caches</code> and <code>~/Library/Logs</code> are safe to empty. Apps rebuild what they need, and some will be a little slower the first time you open them. Quit your apps first. Usually 2 to 10 GB.</p>
+
+    <h2>6. If you write code</h2>
+    <p>Developer Macs are where the space usually is. The three big ones:</p>
+    <pre><code>xcrun simctl runtime list
+docker system df
+du -sh ~/Library/Developer/Xcode/DerivedData</code></pre>
+    <p>Old simulator runtimes are 7 to 10 GB each, and Docker and DerivedData are rebuilt on demand. See <a href="delete-old-ios-simulator-runtimes.html">simulator runtimes</a>, <a href="docker-desktop-disk-space-mac.html">Docker Desktop</a>, <a href="is-it-safe-to-delete-deriveddata.html">DerivedData</a> and <a href="project-build-folders-taking-space-mac.html">project build folders</a>. If you use Claude Code, check <code>~/.claude</code> too; <a href="claude-code-disk-space-mac.html">it can grow to hundreds of GB</a>.</p>
+
+    <h2>7. Empty the Trash, then restart</h2>
+    <p>Nothing you moved to the Trash frees a byte until you empty it. Empty it, restart so macOS can settle its own bookkeeping, check <code>df -h /</code> again, then run Software Update.</p>
+
+    <h2>What not to do</h2>
+    <ul>
+      <li><strong>Don't erase the Mac to "make room".</strong> A clean install needs a full backup and a restore that puts everything back anyway.</li>
+      <li><strong>Don't delete anything in <code>/System</code> or <code>/Library/Updates</code>.</strong> The first is sealed; the second is Software Update's own staging area and deleting it mid-download confuses it.</li>
+      <li><strong>Don't let a cleaner wipe <code>~/Library/Application Support</code>.</strong> That is where apps keep your data, not their caches.</li>
+      <li><strong>Don't stop at 20 GB free.</strong> The install may squeeze through and leave you with a Mac too full to run well, before Apple Intelligence adds its share.</li>
+    </ul>
+
+    <h2>In ddeploy</h2>
+    <p>ddeploy does steps 1 to 6 in one scan: local snapshots with their sizes, every iPhone backup, installers in Downloads, caches and logs, and on a developer Mac simulators, Docker, DerivedData and build folders. Everything is labelled Safe, Look First or Gone for Good. Tick what you want, one Clean button. Scanning is free, and your first clean is free too, which for most people is the one that gets the update installed.</p>
+
+    <p class="fine">More on Mac storage: <a href="apple-intelligence-storage-macos-27.html">Apple Intelligence is taking 30 GB</a> · <a href="macos-27-update-storage-system-data.html">Where the macOS 27 update's 15 GB went</a> · <a href="what-is-system-data-mac.html">What is System Data?</a> · <a href="time-machine-local-snapshots-taking-space.html">Time Machine local snapshots</a></p>
+    <div class="cta-box"><p style="margin:0 0 14px"><strong>Get to 40 GB free in a few minutes. Free scan, first clean free.</strong></p><a class="btn" href="../download.html">Download ddeploy</a></div>
+  </div>
+</article>
+<footer><div class="wrap"><span>© 2026 ddeploy</span><a href="../">Home</a><a href="./">Blog</a><a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a><a href="../refunds.html">Refunds</a><a href="mailto:hello@ddeploy.com">hello@ddeploy.com</a></div></footer>
+</body>
+</html>

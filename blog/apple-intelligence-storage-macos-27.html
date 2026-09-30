@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#F3F0E8">
+<title>Apple Intelligence is taking 30 GB on your Mac in macOS 27. Here's what you can do.</title>
+<meta name="description" content="In macOS 27 Apple Intelligence models take 14 to 30 GB and the switch that deleted them is gone. How to see your number, why the Recovery-mode hacks aren't worth it, and where to find the same 30 GB elsewhere.">
+<link rel="canonical" href="https://ddeploy.com/blog/apple-intelligence-storage-macos-27.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Apple Intelligence is taking 30 GB on your Mac in macOS 27. Here's what you can do.">
+<meta property="og:description" content="In macOS 27 Apple Intelligence models take 14 to 30 GB and the switch that deleted them is gone. How to see your number, why the Recovery-mode hacks aren't worth it, and where to find the same 30 GB elsewhere.">
+<meta property="og:url" content="https://ddeploy.com/blog/apple-intelligence-storage-macos-27.html">
+<meta property="og:image" content="https://ddeploy.com/assets/home.jpg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<link rel="stylesheet" href="../assets/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","headline":"Apple Intelligence is taking 30 GB on your Mac in macOS 27. Here's what you can do.","datePublished":"2026-09-30","dateModified":"2026-09-30","author":{"@type":"Organization","name":"ddeploy","url":"https://ddeploy.com/"},"publisher":{"@type":"Organization","name":"ddeploy","url":"https://ddeploy.com/"},"mainEntityOfPage":"https://ddeploy.com/blog/apple-intelligence-storage-macos-27.html","description":"In macOS 27 Apple Intelligence models take 14 to 30 GB and the switch that deleted them is gone. How to see your number, why the Recovery-mode hacks aren't worth it, and where to find the same 30 GB elsewhere."}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"How much storage does Apple Intelligence use in macOS 27?","acceptedAnswer":{"@type":"Answer","text":"Apple says up to 14 GB on Macs with M3 or later and at least 12 GB of memory, and up to 8 GB on other supported Macs. Measured numbers are higher: MacRumors found 20.67 GB on an M4 Pro Mac mini, 22.42 GB on an M3 MacBook Air and 24.35 GB on an M3 Pro MacBook Pro, and some owners report 30 GB."}},
+{"@type":"Question","name":"Can I turn off Apple Intelligence in macOS 27 to get the space back?","acceptedAnswer":{"@type":"Answer","text":"No. macOS 26 had a switch that turned Apple Intelligence off and deleted its models. macOS 27 removed it, and the models download automatically. You can stop using the features, but the models stay on disk."}},
+{"@type":"Question","name":"Is it safe to delete the Apple Intelligence model folder in Recovery mode?","acceptedAnswer":{"@type":"Answer","text":"It works for some people, but it is not supported: you are deleting files from a protected system folder, macOS can download the models again, and the only clean way back if something breaks is reinstalling macOS. On most Macs the same amount of space is available from snapshots, old iPhone backups and caches, which are safe to remove."}}
+]}
+</script>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "122311ba2768424b86fb279c179ac213"}'></script><!-- End Cloudflare Web Analytics -->
+</head>
+<body>
+<nav><div class="wrap"><a class="brand" href="../"><img src="../assets/logo.svg" alt="" width="20" height="20">ddeploy</a><a class="link" href="../faq.html">FAQ</a><a class="link" href="../developers.html">Developers</a><a class="link" href="./">Blog</a><a class="cta" href="../download.html">Download</a></div></nav>
+<article>
+  <div class="wrap narrow">
+    <h1>Apple Intelligence is taking 30 GB on your Mac in macOS 27. Here's what you can do.</h1>
+    <p class="date">30 September 2026</p>
+    <div class="ledger" style="margin:24px 0 32px">
+      <div class="lg-head"><span>Where to find 30 GB instead</span><span>typical</span></div>
+      <div class="lg-rows">
+        <div class="lg-row"><span>Apple Intelligence models</span><span class="lg-lead"></span><span class="lg-size">14–30 GB</span><span class="lg-tag keep">STAYS</span></div>
+        <div class="lg-row"><span>Local snapshots, including the pre-update one</span><span class="lg-lead"></span><span class="lg-size">8–20 GB</span><span class="lg-tag del">DELETE</span></div>
+        <div class="lg-row"><span>Old iPhone and iPad backups</span><span class="lg-lead"></span><span class="lg-size">10–80 GB</span><span class="lg-tag review">REVIEW</span></div>
+        <div class="lg-row"><span>A leftover "Install macOS" app</span><span class="lg-lead"></span><span class="lg-size">0–19 GB</span><span class="lg-tag del">DELETE</span></div>
+        <div class="lg-row"><span>User caches and logs</span><span class="lg-lead"></span><span class="lg-size">2–10 GB</span><span class="lg-tag del">DELETE</span></div>
+        <div class="lg-row"><span>Developer leftovers: simulators, Docker, builds</span><span class="lg-lead"></span><span class="lg-size">0–100 GB</span><span class="lg-tag review">REVIEW</span></div>
+      </div>
+      <div class="lg-total"><span>Usually removable</span><b>20–60 GB</b></div>
+      <p class="lg-note">The models are the one row you can't remove. The rest are typical sizes; the commands below give your own numbers.</p>
+    </div>
+
+    <p>You updated to macOS 27, opened Storage settings, and the "macOS" bar is far bigger than it was on Tahoe. Click the <strong>ⓘ</strong> next to it and there it is: Apple Intelligence, somewhere between 14 and 30 GB. On a 1 TB Mac that is annoying. On a 256 GB Mac it is a real problem, and a Hacker News thread about it has over 200 points, with 256 GB owners saying exactly that.</p>
+    <p>Here is what is going on, why you can't delete it the way you could last year, and where to get the same space back without touching the system.</p>
+
+    <h2>How big it really is</h2>
+    <p>Apple's <a href="https://support.apple.com/en-us/121115">Apple Intelligence support page</a> says up to 14 GB on Macs with M3 or later and at least 12 GB of memory, and up to 8 GB on the others. Measured numbers run higher. <a href="https://www.macrumors.com/2026/09/23/apple-intelligence-30gb-some-macs-macos-27/">MacRumors</a> found 20.67 GB on an M4 Pro Mac mini, 22.42 GB on an M3 MacBook Air and 24.35 GB on an M3 Pro MacBook Pro, with a reader at 30.16 GB. Nobody, Apple included, has explained why two similar Macs get such different amounts.</p>
+    <p>To see yours: <strong>System Settings → General → Storage</strong>, then the <strong>ⓘ</strong> beside macOS. The Storage pane is slow and often wrong right after an update, so give it a few minutes, and read the "macOS" and "System Data" bars as estimates.</p>
+
+    <h2>Why you can't just turn it off anymore</h2>
+    <p>In macOS 26 there was one switch: turn Apple Intelligence off and macOS removed the models. macOS 27 removed it. The models download automatically once the Mac is online, and whatever you switch off in <strong>Apple Intelligence &amp; Siri</strong> settings, they stay on disk. The first point update, 27.0.1 on 28 September, didn't change that; one MacRumors reader watched the number go from 1.8 GB to over 8 GB after installing it.</p>
+    <p>If you read an older guide that says "turn it off in System Settings and the space comes back", it was right for Tahoe and it is wrong for Golden Gate. Ours said it too until today.</p>
+
+    <h2>The workarounds going around, and why we'd skip them</h2>
+    <p>Two kinds are circulating. One boots into Recovery and deletes the model folders under <code>AssetsV2</code> by hand. One published test got about 14 GB back, and noted that macOS can try to download the models again. The other is a set of scripts on GitHub that do the same from a normal login. Their own README says there is no automatic restore of deleted files, and that you may need to reinstall macOS to get them back.</p>
+    <p>The tricks on Hacker News (Screen Time restrictions, switching the Mac to a language Apple Intelligence doesn't support) stop the features. Nobody has shown they remove the models already on disk.</p>
+    <p>Our view: deleting files from a protected system folder, on a Mac you depend on, to win space that may come back next update, is a bad trade when the same amount is sitting in places that are safe to clear. Here are those places.</p>
+
+    <h2>1. Local snapshots</h2>
+    <p>The update took an APFS snapshot of your disk before installing, and Time Machine keeps hourly ones. Each pins deleted and changed files. This is usually the biggest safe win after an update.</p>
+    <pre><code>tmutil listlocalsnapshots /
+sudo tmutil deletelocalsnapshots 2026-09-19-183012</code></pre>
+    <p>Use the dates from your own list. Leave any <code>com.apple.os.update-…</code> line alone; that is the system you are booted from. More in <a href="time-machine-local-snapshots-taking-space.html">Time Machine local snapshots</a>.</p>
+
+    <h2>2. Old iPhone and iPad backups</h2>
+    <p>Your Mac keeps every backup of every device you have ever plugged in, and never deletes an old one. If you have had three iPhones, you may have three backups. <strong>System Settings → General → Storage → iOS Files</strong> lists them with dates and sizes. The full walkthrough is in <a href="delete-old-iphone-backups-mac.html">Old iPhone backups on your Mac</a>.</p>
+
+    <h2>3. A leftover macOS installer</h2>
+    <p>If you ever downloaded a macOS installer yourself, or an update failed halfway, the installer app can still be sitting in Applications at 15 to 19 GB.</p>
+    <pre><code>ls -d /Applications/Install\ macOS*.app</code></pre>
+    <p>Anything listed that isn't the version you are about to install can go to the Trash. Empty the Trash afterwards, or the space doesn't come back.</p>
+
+    <h2>4. Caches and logs</h2>
+    <p><code>~/Library/Caches</code> and <code>~/Library/Logs</code> are safe to empty; apps rebuild what they need. Don't expect miracles the week after a major update, because everything was just rebuilt, but 2 to 10 GB is normal.</p>
+
+    <h2>5. Photos and iCloud Drive, kept in iCloud</h2>
+    <p>If you pay for iCloud, two settings let macOS keep the originals in iCloud and small copies on the Mac: <strong>Photos → Settings → iCloud → Optimize Mac Storage</strong>, and <strong>Optimize Mac Storage</strong> under iCloud Drive in <strong>System Settings → your name → iCloud</strong>. Nothing is deleted. On a Mac with a big photo library this alone can cover the whole 30 GB, though macOS frees it gradually, not at once.</p>
+
+    <h2>6. If you write code</h2>
+    <p>This is where the big numbers are. Old iOS simulator runtimes are 7 to 10 GB each, Docker's disk image grows and never shrinks on its own, and every project folder has a build directory. See <a href="delete-old-ios-simulator-runtimes.html">simulator runtimes</a>, <a href="docker-desktop-disk-space-mac.html">Docker Desktop</a> and <a href="project-build-folders-taking-space-mac.html">project build folders</a>.</p>
+
+    <h2>If you have a 256 GB Mac</h2>
+    <p>You feel this most. macOS, the models, and a normal System Data bar can take a big share of the disk before you save a single file. Do the list above once, then keep an eye on the two things that grow back fastest: snapshots and caches. And if Apple's own number for your Mac is 8 or 14 GB but yours is far above it, say so at <a href="https://www.apple.com/feedback/macos.html">apple.com/feedback</a>. Apple reads those, and the gap between the published figure and the real one is the part it hasn't explained.</p>
+
+    <h2>In ddeploy</h2>
+    <p>ddeploy doesn't delete the Apple Intelligence models, and nothing should: they live in a protected system folder and macOS manages them. What it does is the other half. One scan lists your local snapshots, every iPhone backup with its size, caches and logs, installers in Downloads and, on a developer Mac, simulators, Docker and build folders. Each item is marked Safe, Look First or Gone for Good, so you know what you are deleting. Scanning is free, and so is your first clean.</p>
+
+    <p class="fine">More on Mac storage: <a href="macos-27-update-storage-system-data.html">Where the macOS 27 update's 15 GB went</a> · <a href="not-enough-space-to-install-macos-27.html">Not enough space to install macOS 27</a> · <a href="what-is-system-data-mac.html">What is System Data?</a> · <a href="delete-old-iphone-backups-mac.html">Old iPhone backups</a></p>
+    <div class="cta-box"><p style="margin:0 0 14px"><strong>Can't delete the 30 GB Apple took? Find 30 GB somewhere else. Free to scan.</strong></p><a class="btn" href="../download.html">Download ddeploy</a></div>
+  </div>
+</article>
+<footer><div class="wrap"><span>© 2026 ddeploy</span><a href="../">Home</a><a href="./">Blog</a><a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a><a href="../refunds.html">Refunds</a><a href="mailto:hello@ddeploy.com">hello@ddeploy.com</a></div></footer>
+</body>
+</html>

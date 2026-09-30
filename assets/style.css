@@ -248,6 +248,11 @@ article pre code { background: none; border: 0; padding: 0; font-size: inherit; 
 article ul { padding-left: 22px; }
 article li { margin-bottom: 8px; }
 article .ledger .lg-row { font-size: 13.5px; }
+@media (max-width: 520px) {
+  article .ledger .lg-size { width: auto; min-width: 66px; padding-left: 6px; flex-shrink: 0; }
+  article .ledger .lg-tag { flex-shrink: 0; }
+  article .ledger .lg-row > span:first-child { min-width: 0; overflow-wrap: anywhere; }
+}
 
 /* The first screen: three words, one sentence, one button */
 .fold { display: flex; flex-direction: column; min-height: calc(100vh - 69px); min-height: calc(100svh - 69px); }

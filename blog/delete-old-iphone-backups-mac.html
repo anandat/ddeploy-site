@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#F3F0E8">
+<title>Old iPhone backups on your Mac: find them, see which is which, delete the ones you don't need</title>
+<meta name="description" content="Your Mac keeps every iPhone and iPad backup it has ever made. Where they are, how to tell them apart by name and date, which one to keep before you set up a new iPhone, and the IPSW files hiding next to them.">
+<link rel="canonical" href="https://ddeploy.com/blog/delete-old-iphone-backups-mac.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Old iPhone backups on your Mac: find them, see which is which, delete the ones you don't need">
+<meta property="og:description" content="Your Mac keeps every iPhone and iPad backup it has ever made. Where they are, how to tell them apart by name and date, which one to keep before you set up a new iPhone, and the IPSW files hiding next to them.">
+<meta property="og:url" content="https://ddeploy.com/blog/delete-old-iphone-backups-mac.html">
+<meta property="og:image" content="https://ddeploy.com/assets/home.jpg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<link rel="stylesheet" href="../assets/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","headline":"Old iPhone backups on your Mac: find them, see which is which, delete the ones you don't need","datePublished":"2026-09-30","dateModified":"2026-09-30","author":{"@type":"Organization","name":"ddeploy","url":"https://ddeploy.com/"},"publisher":{"@type":"Organization","name":"ddeploy","url":"https://ddeploy.com/"},"mainEntityOfPage":"https://ddeploy.com/blog/delete-old-iphone-backups-mac.html","description":"Your Mac keeps every iPhone and iPad backup it has ever made. Where they are, how to tell them apart by name and date, which one to keep before you set up a new iPhone, and the IPSW files hiding next to them."}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"Where are iPhone backups stored on a Mac?","acceptedAnswer":{"@type":"Answer","text":"In ~/Library/Application Support/MobileSync/Backup, one folder per device. The easiest way to see and delete them is System Settings, General, Storage, then iOS Files, which lists each backup with the device name, date and size."}},
+{"@type":"Question","name":"Is it safe to delete old iPhone backups on my Mac?","acceptedAnswer":{"@type":"Answer","text":"Yes for devices you no longer own and for older archived copies. Keep the most recent backup of the phone you use until your new phone is set up and checked. If the backup is encrypted and you don't back up to iCloud, it may be your only copy of Health data and saved passwords, so keep one."}},
+{"@type":"Question","name":"Do I need a Mac backup to set up a new iPhone?","acceptedAnswer":{"@type":"Answer","text":"No. Quick Start moves everything directly from the old phone to the new one. If you prefer iCloud, Prepare for New iPhone in Settings, General, Transfer or Reset iPhone gives you temporary iCloud storage for the move, free, even if your plan is too small."}}
+]}
+</script>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "122311ba2768424b86fb279c179ac213"}'></script><!-- End Cloudflare Web Analytics -->
+</head>
+<body>
+<nav><div class="wrap"><a class="brand" href="../"><img src="../assets/logo.svg" alt="" width="20" height="20">ddeploy</a><a class="link" href="../faq.html">FAQ</a><a class="link" href="../developers.html">Developers</a><a class="link" href="./">Blog</a><a class="cta" href="../download.html">Download</a></div></nav>
+<article>
+  <div class="wrap narrow">
+    <h1>Old iPhone backups on your Mac: find them, see which is which, delete the ones you don't need</h1>
+    <p class="date">30 September 2026</p>
+    <div class="ledger" style="margin:24px 0 32px">
+      <div class="lg-head"><span>~/Library/…/MobileSync/Backup</span><span>typical</span></div>
+      <div class="lg-rows">
+        <div class="lg-row"><span>Backup of a phone you no longer have</span><span class="lg-lead"></span><span class="lg-size">10–80 GB</span><span class="lg-tag del">DELETE</span></div>
+        <div class="lg-row"><span>Archived copies, folder name ends in a date</span><span class="lg-lead"></span><span class="lg-size">10–80 GB</span><span class="lg-tag del">DELETE</span></div>
+        <div class="lg-row"><span>Old iPad backup</span><span class="lg-lead"></span><span class="lg-size">5–40 GB</span><span class="lg-tag review">REVIEW</span></div>
+        <div class="lg-row"><span>iOS update files (.ipsw), each</span><span class="lg-lead"></span><span class="lg-size">6–10 GB</span><span class="lg-tag del">DELETE</span></div>
+        <div class="lg-row"><span>Latest backup of the phone you use</span><span class="lg-lead"></span><span class="lg-size">10–80 GB</span><span class="lg-tag keep">KEEP</span></div>
+      </div>
+      <div class="lg-total"><span>Usually removable</span><b>20–150 GB</b></div>
+      <p class="lg-note">A backup is roughly the size of what is on the device that isn't already in iCloud. The steps below give your own numbers.</p>
+    </div>
+
+    <p>It is new-iPhone month, which means a lot of people are about to plug an old phone into a Mac, back it up, and restore the new one from it. Your Mac will keep that backup. It also kept the one from the phone before that, and the iPad you sold, and the "archived" copy you made before an iOS beta. It never deletes any of them on its own, and it doesn't warn you they are there. On a Mac that has seen a few phones, this is often the biggest single folder in your Library.</p>
+
+    <h2>How big each one is</h2>
+    <p>A Finder backup skips anything already stored in iCloud (Apple lists iCloud Photos, iMessages and texts among the things it leaves out), plus App Store content and anything synced from the Mac. What is left is your app data, settings, and photos if iCloud Photos is off. So a phone that keeps its photos in iCloud might make a 10 GB backup; a 256 GB phone that doesn't can make one over 100 GB.</p>
+
+    <h2>The easy way: Storage settings</h2>
+    <p><strong>System Settings → General → Storage</strong>, scroll to <strong>iOS Files</strong> and click the <strong>ⓘ</strong>. Every backup is listed with the device name, the date it was made and its size. Select the ones you don't need and click <strong>Delete</strong>. No phone needs to be connected.</p>
+    <p>If you prefer Finder: connect the device, select it in the sidebar, and under <strong>General</strong> click <strong>Manage Backups</strong>. That only works for a device you still have.</p>
+
+    <h2>The Terminal way, with names</h2>
+    <p>The backups live in <code>~/Library/Application Support/MobileSync/Backup</code>, one folder per device, named by a long device ID that tells you nothing. Each has an <code>Info.plist</code> that says which device it is. Terminal needs <strong>Full Disk Access</strong> to read this folder (System Settings → Privacy &amp; Security → Full Disk Access). Then:</p>
+    <pre><code>cd ~/Library/Application\ Support/MobileSync/Backup
+for d in */; do
+  echo "$(du -sh "$d" | cut -f1)  $(plutil -extract 'Device Name' raw "$d/Info.plist" 2&gt;/dev/null)  $(plutil -extract 'Last Backup Date' raw "$d/Info.plist" 2&gt;/dev/null)  $d"
+done</code></pre>
+    <p>That prints size, device name, last backup date and folder for each. A folder whose name ends in a date and time, like <code>…-20250914-203311</code>, is an <em>archived</em> backup. Finder keeps those forever, separate from the regular one, and they are usually the first to go.</p>
+
+    <h2>Which ones to keep</h2>
+    <ul>
+      <li><strong>Keep the latest backup of the phone you use</strong>, at least until your new phone is set up and you have checked that photos, messages, WhatsApp and your authenticator app all came across.</li>
+      <li><strong>Keep one encrypted backup if you don't use iCloud backup.</strong> Apple only includes Health, Activity and saved passwords in encrypted backups. If "Encrypt local backup" is on, that backup may be your only copy of them.</li>
+      <li><strong>Delete backups of devices you sold, gave away or lost</strong>, and archived copies you no longer need.</li>
+    </ul>
+
+    <h2>Setting up a new iPhone without filling the Mac</h2>
+    <p>You may not need a Mac backup at all. <strong>Quick Start</strong>, the screen that appears when you hold the old phone near the new one, copies everything directly between them. If you would rather go through iCloud, <strong>Settings → General → Transfer or Reset iPhone → Prepare for New iPhone</strong> on the old phone gives you temporary iCloud storage for the move, free, even if your plan is too small. Either way the Mac stays out of it.</p>
+
+    <h2>The iOS update files next door</h2>
+    <p>When Finder updates or restores an iPhone or iPad, it downloads the whole iOS image first and keeps it:</p>
+    <pre><code>ls -lh ~/Library/iTunes/iPhone\ Software\ Updates ~/Library/iTunes/iPad\ Software\ Updates 2&gt;/dev/null</code></pre>
+    <p>Each <code>.ipsw</code> is several GB. They are safe to delete once the update is done; Finder downloads a fresh one if it ever needs it.</p>
+
+    <h2>Moving backups to an external drive</h2>
+    <p>Finder has no setting for where backups go. The common workaround is to move the <code>Backup</code> folder to an external drive and leave a symbolic link in its place. It works, but Apple doesn't support it, and if the drive isn't plugged in when you back up, the backup fails. If you only back up before switching phones, deleting old backups is simpler.</p>
+
+    <h2>In ddeploy</h2>
+    <p><strong>Old iPhone backups</strong> is one of the Clean Up cards. It lists every backup with its size and is marked Look First, so nothing is ticked until you choose. Whatever you pick goes to the Trash, not straight to deletion, so you can put it back. The same scan finds the rest of what fills a Mac: local snapshots, caches, installers in Downloads, WhatsApp media chat by chat. Scanning is free, and so is your first clean.</p>
+
+    <p class="fine">More on Mac storage: <a href="whatsapp-mac-storage-huge.html">WhatsApp is using 18 GB</a> · <a href="what-is-system-data-mac.html">What is System Data?</a> · <a href="not-enough-space-to-install-macos-27.html">Not enough space to install macOS 27</a> · <a href="apple-intelligence-storage-macos-27.html">Apple Intelligence is taking 30 GB</a></p>
+    <div class="cta-box"><p style="margin:0 0 14px"><strong>See every iPhone backup on your Mac, and its size, in under a minute. Free to scan.</strong></p><a class="btn" href="../download.html">Download ddeploy</a></div>
+  </div>
+</article>
+<footer><div class="wrap"><span>© 2026 ddeploy</span><a href="../">Home</a><a href="./">Blog</a><a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a><a href="../refunds.html">Refunds</a><a href="mailto:hello@ddeploy.com">hello@ddeploy.com</a></div></footer>
+</body>
+</html>

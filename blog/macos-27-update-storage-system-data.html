@@ -16,13 +16,13 @@
 <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
 <link rel="stylesheet" href="../assets/style.css">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","headline":"macOS 27 update ate 15 GB of your storage. Here's where it went and how to get it back.","datePublished":"2026-09-20","dateModified":"2026-09-20","author":{"@type":"Organization","name":"ddeploy","url":"https://ddeploy.com/"},"publisher":{"@type":"Organization","name":"ddeploy","url":"https://ddeploy.com/"},"mainEntityOfPage":"https://ddeploy.com/blog/macos-27-update-storage-system-data.html","description":"After updating to macOS 27, System Data jumped and free space dropped by 15 GB or more. It is the pre-update snapshot, Apple Intelligence models and rebuilt caches, not the OS. How to check each one and what is safe to delete."}
+{"@context":"https://schema.org","@type":"BlogPosting","headline":"macOS 27 update ate 15 GB of your storage. Here's where it went and how to get it back.","datePublished":"2026-09-20","dateModified":"2026-09-30","author":{"@type":"Organization","name":"ddeploy","url":"https://ddeploy.com/"},"publisher":{"@type":"Organization","name":"ddeploy","url":"https://ddeploy.com/"},"mainEntityOfPage":"https://ddeploy.com/blog/macos-27-update-storage-system-data.html","description":"After updating to macOS 27, System Data jumped and free space dropped by 15 GB or more. It is the pre-update snapshot, Apple Intelligence models and rebuilt caches, not the OS. How to check each one and what is safe to delete."}
 </script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
 {"@type":"Question","name":"Why did System Data grow after updating to macOS 27?","acceptedAnswer":{"@type":"Answer","text":"Three things land in System Data after a major macOS update: the local snapshot macOS takes before upgrading, Apple Intelligence models it downloads on supported Macs, and caches and Spotlight indexes that are rebuilt from scratch. The snapshot is usually the biggest and is safe to delete with tmutil."}},
 {"@type":"Question","name":"Is it safe to delete the snapshot macOS made before the update?","acceptedAnswer":{"@type":"Answer","text":"Yes, once you are happy with the update. Deleting a Time Machine local snapshot only removes the ability to roll back to that exact moment from the local copy. Your Time Machine backup disk is untouched. Do not delete the com.apple.os.update snapshot, which is the system you are booted from."}},
-{"@type":"Question","name":"Will the space come back on its own?","acceptedAnswer":{"@type":"Answer","text":"Some of it. macOS is supposed to thin local snapshots within about 24 hours and clears its own update staging files. Rebuilt caches are permanent but small. Apple Intelligence models stay until you turn the feature off."}}
+{"@type":"Question","name":"Will the space come back on its own?","acceptedAnswer":{"@type":"Answer","text":"Some of it. macOS is supposed to thin local snapshots within about 24 hours and clears its own update staging files. Rebuilt caches are permanent but small. Apple Intelligence models stay: macOS 27 has no switch that deletes them."}}
 ]}
 </script>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "122311ba2768424b86fb279c179ac213"}'></script><!-- End Cloudflare Web Analytics -->
@@ -32,12 +32,12 @@
 <article>
   <div class="wrap narrow">
     <h1>macOS 27 update ate 15 GB of your storage. Here's where it went and how to get it back.</h1>
-    <p class="date">20 September 2026</p>
+    <p class="date">20 September 2026 · updated 30 September</p>
     <div class="ledger" style="margin:24px 0 32px">
       <div class="lg-head"><span>Macintosh HD · after the update</span><span>typical</span></div>
       <div class="lg-rows">
         <div class="lg-row"><span>Local snapshot taken before the upgrade</span><span class="lg-lead"></span><span class="lg-size">8–20 GB</span><span class="lg-tag del">DELETE</span></div>
-        <div class="lg-row"><span>Apple Intelligence models</span><span class="lg-lead"></span><span class="lg-size">~7 GB</span><span class="lg-tag review">REVIEW</span></div>
+        <div class="lg-row"><span>Apple Intelligence models</span><span class="lg-lead"></span><span class="lg-size">14–30 GB</span><span class="lg-tag keep">STAYS</span></div>
         <div class="lg-row"><span>Caches and Spotlight index, rebuilt</span><span class="lg-lead"></span><span class="lg-size">2–5 GB</span><span class="lg-tag keep">KEEP</span></div>
         <div class="lg-row"><span>Update staging files, /Library/Updates</span><span class="lg-lead"></span><span class="lg-size">0.5–3 GB</span><span class="lg-tag keep">KEEP</span></div>
         <div class="lg-row"><span>The macOS volume itself, bigger this year</span><span class="lg-lead"></span><span class="lg-size">2–3 GB</span><span class="lg-tag keep">KEEP</span></div>
@@ -57,7 +57,7 @@
     <p>One line you must leave alone: <code>com.apple.os.update-…</code>. That is the sealed system you are booted from, not a backup, and tmutil will refuse anyway. Everything else in the list is fair game once you are happy with the update. Your real Time Machine backups on the external disk are not affected.</p>
 
     <h2>2. Apple Intelligence models</h2>
-    <p>On Macs that support it, the update turns Apple Intelligence on and downloads its on-device models into <code>/System/Library/AssetsV2</code>. Reports put it around 7 GB. If you use it, that space is the price. If you don't, turn it off in <strong>System Settings → Apple Intelligence &amp; Siri</strong> and macOS removes the models; give it a little while and a restart. You cannot delete them by hand, the folder is protected.</p>
+    <p>On Macs that support it, the update downloads Apple Intelligence's on-device models into a protected system folder. Apple says up to 14 GB; measured Macs show 14 to 30 GB, and Storage settings counts it under the <strong>ⓘ</strong> next to macOS. Unlike Tahoe, macOS 27 has no switch that turns Apple Intelligence off and deletes the models, so this space stays. <a href="apple-intelligence-storage-macos-27.html">What you can do about it instead.</a></p>
 
     <h2>3. Caches and the Spotlight index</h2>
     <p>A major update invalidates every app cache and rebuilds the Spotlight index from scratch. For a few days the disk churns and System Data floats up and down by a few GB. This settles on its own. Clearing <code>~/Library/Caches</code> now just makes the apps rebuild it again.</p>

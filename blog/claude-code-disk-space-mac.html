@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#F3F0E8">
+<title>Claude Code ate 472 GB on one Mac. What's in ~/.claude and what's safe to delete.</title>
+<meta name="description" content="Claude Code keeps debug logs, MCP logs, transcripts and file snapshots on your Mac. Which folders can grow to hundreds of GB, which are safe to delete, the three files you must keep, and the setting that stops it growing back.">
+<link rel="canonical" href="https://ddeploy.com/blog/claude-code-disk-space-mac.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Claude Code ate 472 GB on one Mac. What's in ~/.claude and what's safe to delete.">
+<meta property="og:description" content="Claude Code keeps debug logs, MCP logs, transcripts and file snapshots on your Mac. Which folders can grow to hundreds of GB, which are safe to delete, the three files you must keep, and the setting that stops it growing back.">
+<meta property="og:url" content="https://ddeploy.com/blog/claude-code-disk-space-mac.html">
+<meta property="og:image" content="https://ddeploy.com/assets/home.jpg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<link rel="stylesheet" href="../assets/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","headline":"Claude Code ate 472 GB on one Mac. What's in ~/.claude and what's safe to delete.","datePublished":"2026-09-30","dateModified":"2026-09-30","author":{"@type":"Organization","name":"ddeploy","url":"https://ddeploy.com/"},"publisher":{"@type":"Organization","name":"ddeploy","url":"https://ddeploy.com/"},"mainEntityOfPage":"https://ddeploy.com/blog/claude-code-disk-space-mac.html","description":"Claude Code keeps debug logs, MCP logs, transcripts and file snapshots on your Mac. Which folders can grow to hundreds of GB, which are safe to delete, the three files you must keep, and the setting that stops it growing back."}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"Is it safe to delete ~/.claude/debug?","acceptedAnswer":{"@type":"Answer","text":"Yes. Claude Code's documentation lists debug/ among the folders whose deletion loses nothing user-facing. Quit running Claude Code sessions first."}},
+{"@type":"Question","name":"Can I delete the whole ~/.claude folder?","acceptedAnswer":{"@type":"Answer","text":"Don't. It holds your settings, plugins, session transcripts and each project's auto memory, and ~/.claude.json next to it holds your sign-in. Delete the specific folders that are large instead: debug/, and the MCP logs under ~/Library/Caches/claude-cli-nodejs."}},
+{"@type":"Question","name":"How do I stop Claude Code using so much disk space?","acceptedAnswer":{"@type":"Answer","text":"Set cleanupPeriodDays in ~/.claude/settings.json. Claude Code deletes transcripts, debug logs and other session files older than that many days. The default is 30 and the minimum is 1. It also removes old transcripts, so pick a number you can live with."}}
+]}
+</script>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "122311ba2768424b86fb279c179ac213"}'></script><!-- End Cloudflare Web Analytics -->
+</head>
+<body>
+<nav><div class="wrap"><a class="brand" href="../"><img src="../assets/logo.svg" alt="" width="20" height="20">ddeploy</a><a class="link" href="../faq.html">FAQ</a><a class="link" href="../developers.html">Developers</a><a class="link" href="./">Blog</a><a class="cta" href="../download.html">Download</a></div></nav>
+<article>
+  <div class="wrap narrow">
+    <h1>Claude Code ate 472 GB on one Mac. What's in ~/.claude and what's safe to delete.</h1>
+    <p class="date">30 September 2026</p>
+    <div class="ledger" style="margin:24px 0 32px">
+      <div class="lg-head"><span>Claude Code on disk</span><span>can reach</span></div>
+      <div class="lg-rows">
+        <div class="lg-row"><span>~/Library/Caches/claude-cli-nodejs (MCP logs)</span><span class="lg-lead"></span><span class="lg-size">400+ GB</span><span class="lg-tag del">DELETE</span></div>
+        <div class="lg-row"><span>~/.claude/debug</span><span class="lg-lead"></span><span class="lg-size">80 GB</span><span class="lg-tag del">DELETE</span></div>
+        <div class="lg-row"><span>~/.claude/projects (transcripts, memory)</span><span class="lg-lead"></span><span class="lg-size">10 GB</span><span class="lg-tag review">REVIEW</span></div>
+        <div class="lg-row"><span>~/.claude/file-history (checkpoints)</span><span class="lg-lead"></span><span class="lg-size">5 GB</span><span class="lg-tag review">REVIEW</span></div>
+        <div class="lg-row"><span>~/.claude.json, settings.json, plugins/</span><span class="lg-lead"></span><span class="lg-size">small</span><span class="lg-tag keep">KEEP</span></div>
+      </div>
+      <div class="lg-total"><span>Safe to remove</span><b>2 folders</b></div>
+      <p class="lg-note">Upper ends are from bug reports and other developers' write-ups, not typical Macs. Most people find a few GB; a few find hundreds. The commands below give your own numbers.</p>
+    </div>
+
+    <p>In <a href="https://github.com/anthropics/claude-code/issues/18869">issue #18869</a> on the Claude Code repo, a developer on a 1 TB M1 Max found 472 GB gone after four or five months of daily use. None of it was code. It was logs, in two folders, from a session setup that never asked for debug output. The issue was closed as not planned, so the fix is on you. Here is where Claude Code keeps things on a Mac, which parts can go, and how to keep it small.</p>
+
+    <h2>Measure first</h2>
+    <pre><code>du -sh ~/.claude ~/Library/Caches/claude-cli-nodejs 2&gt;/dev/null
+du -sh ~/.claude/* 2&gt;/dev/null | sort -h | tail -8</code></pre>
+    <p>The first line gives the two totals. The second shows the biggest things inside <code>~/.claude</code>. If both are a few hundred MB, you are fine and can stop here.</p>
+
+    <h2>Safe to delete: the two log folders</h2>
+    <p><strong><code>~/Library/Caches/claude-cli-nodejs</code></strong> holds a folder per project with <code>--mcp-logs-*</code> inside: everything your MCP servers printed, per session. A chatty server writes a lot, and nothing trims it. It is a cache in the literal sense; deleting it loses nothing.</p>
+    <p><strong><code>~/.claude/debug</code></strong> holds per-session debug logs. Claude Code's own <a href="https://code.claude.com/docs/en/claude-directory">documentation</a> lists it among the folders you can delete with "nothing user-facing" lost.</p>
+    <p>Quit every running Claude Code session, then:</p>
+    <pre><code>rm -rf ~/Library/Caches/claude-cli-nodejs/*
+rm -rf ~/.claude/debug/*</code></pre>
+    <p>The same page lists <code>plans/</code>, <code>session-env/</code>, <code>shell-snapshots/</code> and <code>backups/</code> as safe too, plus the legacy <code>todos/</code>, <code>statsig/</code>, <code>logs/</code> and <code>image-cache/</code> that current versions no longer write. They are rarely big.</p>
+
+    <h2>Think first: history you might want</h2>
+    <ul>
+      <li><strong><code>projects/</code></strong> holds a transcript of every session, and each project's <em>auto memory</em>: the notes Claude keeps about your build commands and conventions. Delete it and you lose resume and rewind for old sessions, and the memory for every project.</li>
+      <li><strong><code>file-history/</code></strong> holds snapshots of files before Claude edited them, which is what checkpoint restore uses. Safe to clear for sessions you are done with.</li>
+      <li><strong><code>history.jsonl</code></strong> is your prompt history for up-arrow and Ctrl+R.</li>
+    </ul>
+    <p>To clear one finished project instead of everything, Claude Code has a command that shows what it will delete before it does:</p>
+    <pre><code>claude project purge ~/Development/old-project --dry-run</code></pre>
+    <p>Drop <code>--dry-run</code> to do it. One more reason to trim <code>projects/</code>: transcripts are plain text, and anything a tool read, including a <code>.env</code> file, is in there.</p>
+
+    <h2>Never delete</h2>
+    <p><code>~/.claude.json</code> (sign-in and per-project trust), <code>~/.claude/settings.json</code> (your preferences) and <code>~/.claude/plugins/</code>. And don't <code>rm -rf ~/.claude</code> to be done with it: you sign out, lose every project's memory, and the folder is back in a minute.</p>
+
+    <h2>Stop it growing back</h2>
+    <p>Claude Code deletes old session files on its own once they are older than <code>cleanupPeriodDays</code>. The default is 30 days. Lower it in <code>~/.claude/settings.json</code>:</p>
+    <pre><code>{
+  "cleanupPeriodDays": 14
+}</code></pre>
+    <p>The minimum is 1, and <code>0</code> is rejected as an error. The trade-off is real: the same setting removes old transcripts, so you can't resume a session older than that. And the sweep covers <code>~/.claude</code>; the MCP logs in <code>~/Library/Caches</code> aren't on its documented list, so check that folder every month or two.</p>
+
+    <h2>Cursor, VS Code and the Claude app</h2>
+    <p>Editors built on VS Code keep their caches in <code>~/Library/Application Support/Cursor</code> and <code>…/Code</code>. The subfolders <code>Cache</code>, <code>CachedData</code>, <code>Code Cache</code>, <code>GPUCache</code>, <code>logs</code> and <code>CachedExtensionVSIXs</code> are rebuilt on the next launch; leave <code>User</code> alone, it is your settings and workspace state. The Claude desktop app is the same shape under <code>~/Library/Application Support/Claude</code>: clear <code>Cache</code>, <code>Code Cache</code> and <code>GPUCache</code>, and leave <code>vm_bundles</code> alone.</p>
+
+    <h2>In ddeploy</h2>
+    <p>ddeploy finds all of this in one scan. <strong>User Caches and Logs</strong> clears <code>~/Library/Caches</code>, which is where the MCP logs live. <strong>Claude Code Data</strong> shows how big <code>~/.claude</code> is and opens it for you to look, but never deletes it, because your transcripts and memory are in there. <strong>Claude App</strong> and <strong>Cursor and VS Code</strong> clear only the cache folders listed above and never touch <code>vm_bundles</code> or your settings. The same scan covers Ollama, Hugging Face, LM Studio, Xcode, Docker and build folders. Scanning is free.</p>
+
+    <p class="fine">More for developers: <a href="clean-ollama-huggingface-models-mac.html">Ollama and Hugging Face models</a> · <a href="docker-desktop-disk-space-mac.html">Docker Desktop disk space</a> · <a href="project-build-folders-taking-space-mac.html">Project build folders</a> · <a href="delete-old-ios-simulator-runtimes.html">Old iOS simulator runtimes</a></p>
+    <div class="cta-box"><p style="margin:0 0 14px"><strong>See what your AI tools are keeping on disk, folder by folder. Free to scan.</strong></p><a class="btn" href="../download.html">Download ddeploy</a></div>
+  </div>
+</article>
+<footer><div class="wrap"><span>© 2026 ddeploy</span><a href="../">Home</a><a href="./">Blog</a><a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a><a href="../refunds.html">Refunds</a><a href="mailto:hello@ddeploy.com">hello@ddeploy.com</a></div></footer>
+</body>
+</html>
