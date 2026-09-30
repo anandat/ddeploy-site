@@ -29,6 +29,7 @@ body {
 a { color: var(--ink); text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 3px; }
 a:hover { color: var(--accent); text-decoration-color: currentColor; }
 img { max-width: 100%; height: auto; display: block; }
+video { max-width: 100%; height: auto; }
 .wrap { max-width: 1160px; margin: 0 auto; padding: 0 28px; }
 .narrow { max-width: 720px; }
 .mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
